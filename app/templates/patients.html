@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h3>List of admitted patients:</h3>
+        <ul>
+            {% for patient in patients %}
+                <li>
+                    <a href="{{ url_for('get_patient', id=patient.id) }}">
+                        {{ patient.full_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

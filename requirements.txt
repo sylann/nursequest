@@ -1,0 +1,7 @@
+sqlalchemy
+requests
+beautifulsoup4
+passlib
+flask
+flask-sqlalchemy
+faker

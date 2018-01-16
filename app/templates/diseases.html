@@ -1,0 +1,19 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h3>List of all known diseases:</h3>
+        <form action="{{ url_for('get_diseases') }}" method="get">
+            <label for="search">
+                Search:
+                <input type="text" name="search" id="search" value="">
+            </label>
+            <input type="submit" value="Filter">
+        </form>
+        <ul>
+            {% for disease in diseases %}
+                <li><a href="{{ disease.link }}"> {{ disease.name }} </a></li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

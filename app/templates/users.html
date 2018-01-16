@@ -1,0 +1,16 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    <div class="container">
+        <h3>List of hired nurses:</h3>
+        <ul>
+            {% for user in users %}
+                <li>
+                    <a href="{{ url_for('get_user', id=user.id) }}">
+                        {{ user.full_name }}
+                    </a>
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
+{% endblock %}

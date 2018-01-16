@@ -1,0 +1,11 @@
+.venv
+.vscode
+.idea
+__pycache__
+
+*.db
+*.sql
+*.pyc
+
+.DS_Store
+connection_string
