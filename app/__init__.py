@@ -6,7 +6,7 @@ from app.models import db
 
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-database_path = os.path.join(basedir, '..', 'nurse_quest.db')
+database_path = os.path.join(basedir, '..', 'nursequest.db')
 
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///' + database_path

@@ -1,6 +1,6 @@
 <ul class="navbar">
-    <li><a href="/">Home</a></li>
-    <li><a href="/users">Users</a></li>
-    <li><a href="/patients">Patients</a></li>
-    <li><a href="/diseases">Diseases</a></li>
+    <li><a href="{{ url_for('index') }}">Home</a></li>
+    <li><a href="{{ url_for('get_users') }}">Users</a></li>
+    <li><a href="{{ url_for('get_patients') }}">Patients</a></li>
+    <li><a href="{{ url_for('get_diseases') }}">Diseases</a></li>
 </ul>

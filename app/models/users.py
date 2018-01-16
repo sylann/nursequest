@@ -27,8 +27,8 @@ class User(db.Model):
     def verify_password(self, password):
         return pwd_context.verify(password, self.password)
 
-    def update_password(self, newPassword):
-        self.password = pwd_context.encrypt(newPassword)
+    def update_password(self, new_password):
+        self.password = pwd_context.encrypt(new_password)
 
     def generate_token(self):
         h = hashlib.sha1()
@@ -42,13 +42,3 @@ class User(db.Model):
 
     def password_reset(self, reset_link):
         pass
-        # msg = Message("Password reset", recipients=['ludovic@rwigo.com'])
-        # msg = Message("Récupération de mot de passe", recipients=[self.email])
-        # msg.body = render_template("mails/password_reset.txt",
-        #                            first_name=self.first_name,
-        #                            reset_link=reset_link)
-        # msg.html = render_template("mails/password_reset.html",
-        #                            first_name=self.first_name,
-        #                            reset_link=reset_link)
-
-        # mail.send(msg)

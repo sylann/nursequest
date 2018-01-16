@@ -27,6 +27,6 @@ def refresh_diseases():
     try:
         db.session.commit()
     except IntegrityError as err:
-        print(err.args[0])
+        app.logger.error(err.args[0])
         db.session.rollback()
     return redirect(url_for('get_diseases'))
