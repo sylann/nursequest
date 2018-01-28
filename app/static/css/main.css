@@ -4,6 +4,12 @@ body {
     padding: 0;
     width: 100%;
 }
+
+/* override Bulma's rule */
+.section {
+    padding: 1.5rem;
+}
+
 .container {
     width: 75%;
     margin: auto;

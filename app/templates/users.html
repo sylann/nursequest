@@ -2,35 +2,42 @@
 
 {% block content %}
     {% include '_title.html' %}
-    <div class="container">
-        {% include '_pagination.html' %}
-        {% for user in data.items %}
-            <div class="box">
-                <article class="media">
-                    <div class="media-left">
-                        <figure class="image is-64x64">
-                            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
-                        </figure>
-                    </div>
-                    <div class="media-content">
-                        <div class="content">
-                            <p>
-                                <strong>{{ user.full_name }}</strong>
-                                {% if user.is_admin %} <span class="tag is-danger">Admin</span> {% endif %}
-                                <small><a href="{{ user.email }}">  </a></small>
-                            </p>
-                        </div>
-                        <nav class="level is-mobile">
-                            <div class="level-left">
-                                <a class="level-item" href="{{ url_for('get_user', id=user.id) }}"> <span class="icon is-small"> <i class="fa fa-pencil"></i> </span> </a>
-                                <a class="level-item"> <span class="icon is-small"> <i class="fa fa-trash-o"></i> </span> </a>
-                                <a class="level-item"> <span class="icon is-small"> <i class="fa fa-address-book-o"></i> </span> </a>
+
+    <section class="section">
+        <div class="container">
+            {% if data.items | count > 0 %}
+                {% for user in data.items %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-left">
+                                <figure class="image is-64x64">
+                                    <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                                </figure>
                             </div>
-                        </nav>
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ user.full_name }}</strong>
+                                        {% if user.is_admin %} <span class="tag is-danger">Admin</span> {% endif %}
+                                        <small><a href="{{ user.email }}">  </a></small>
+                                    </p>
+                                </div>
+                                <nav class="level is-mobile">
+                                    <div class="level-left">
+                                        <a class="level-item" href="{{ url_for('get_user', id=user.id) }}"> <span class="icon is-small"> <i class="fa fa-pencil"></i> </span> </a>
+                                        <a class="level-item"> <span class="icon is-small"> <i class="fa fa-trash-o"></i> </span> </a>
+                                        <a class="level-item"> <span class="icon is-small"> <i class="fa fa-address-book-o"></i> </span> </a>
+                                    </div>
+                                </nav>
+                            </div>
+                        </article>
                     </div>
-                </article>
-            </div>
-        {% endfor %}
-        {% include '_pagination.html' %}
-    </div>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            {% else %}
+                <p>No diseases registered yet.</p>
+            {% endif %}
+        </div>
+    </section>
+
 {% endblock %}

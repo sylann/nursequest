@@ -2,8 +2,10 @@
 
 {% block content %}
     {% include '_title.html' %}
+
+    <section class="section">
     <div class="container">
-        <section class="columns">
+            <div class="columns">
             <div class="column">
                 <form action="{{ url_for('get_diseases') }}" method="get">
                     <div class="field has-addons">
@@ -25,15 +27,19 @@
             </div>
         </section>
 
-        <section class="item-container">
-            {% include '_pagination.html' %}
-            {% for disease in data.items %}
-                <ul class="tile is-ancestor">
-                    <li class="tile is-parent compact"><a href="{{ disease.link }}" class="tile is-child box">{{ disease.name }}</a></li>
-                </ul>
-            {% endfor %}
-            {% include '_pagination.html' %}
+    <section class="section">
+        <div class="container">
+            {% if data.items | count > 0 %}
+                {% for disease in data.items %}
+                    <ul class="tile is-ancestor">
+                        <li class="tile is-parent compact"><a href="{{ disease.link }}" class="tile is-child box">{{ disease.name }}</a></li>
+                    </ul>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            {% else %}
+                <p>No diseases registered yet.</p>
+            {% endif %}
+        </div>
         </section>
 
-    </div>
 {% endblock %}
