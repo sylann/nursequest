@@ -102,6 +102,21 @@ $ flask shell
 flask run --reload
 ```
 
+## J'ai besoin d'aide
+[Solution à votre problème ici](https://www.google.fr/search?q=insert+problem+here)
+
+[Flask](http://flask.pocoo.org/docs/0.12/quickstart/)
+
+[Python string format](http://strftime.org/)
+
+[Jinja filters](http://jinja.pocoo.org/docs/2.10/templates/#builtin-filters)
+
+[Bulma](https://bulma.io/documentation/overview/start/)
+
+[Font awesome icons](http://fontawesome.io/icons/)
+
+[Toujours pas trouvé de solution ?](mailto:romainfvincent@gmail.com)
+
 # Organisation de l'application
 ## Routes:
 
