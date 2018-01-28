@@ -5,6 +5,12 @@
 
     <section class="section">
         <div class="container">
+            {% include '_searchbar.html' %}
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
             {% if data.items | count > 0 %}
                 {% for patient in data.items %}
                     <div class="box">

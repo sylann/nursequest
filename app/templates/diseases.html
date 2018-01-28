@@ -7,23 +7,13 @@
     <div class="container">
             <div class="columns">
             <div class="column">
-                <form action="{{ url_for('get_diseases') }}" method="get">
-                    <div class="field has-addons">
-                        <div class="control">
-                            <input type="text" class="input" name="search" placeholder="Filter diseases" value="{{ searched }}">
-                        </div>
-                        <div class="control">
-                            <input type="submit" class="button is-info" value="search" />
-                        </div>
-                    </div>
-                </form>
+                {% include '_searchbar.html' %}
             </div>
             <div class="column">
-                <div class="tags has-addons">
-                    <span class="tag is-medium">Refresh the list of diseases from source</span>
-                    <!-- <span class="tag is-info">Update</span> -->
-                    <a href="{{ url_for('refresh_diseases') }}" class="tag is-info is-medium">Update</a>
-                </div>
+                <h4 class="title is-4">Actions</h4>
+                <p class="has-text-danger">Refreshing the list of diseases from source takes more than 10 seconds.
+                    <a href="{{ url_for('refresh_diseases') }}" class="button is-danger is-small">Update diseases</a>
+                </p>
             </div>
         </section>
 

@@ -1,0 +1,21 @@
+<h4 class="title is-4">Filter</h4>
+
+<p class="has-text-info">
+    {% if  searched %}
+    Number of entries with current filter: 
+    {% else %}
+    Total number of entries: 
+    {% endif %}
+    {{ data.total }}
+</p>
+
+<form action="{{ url_for(current_route) }}" method="get">
+    <div class="field has-addons">
+        <div class="control">
+            <input type="text" class="input" name="search" placeholder="Filter entries" value="{{ searched }}">
+        </div>
+        <div class="control">
+            <input type="submit" class="button is-info" value="search" />
+        </div>
+    </div>
+</form>
