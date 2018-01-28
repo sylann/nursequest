@@ -1,0 +1,47 @@
+
+<nav class="pagination is-centered" role="navigation" aria-label="pagination">
+    {% if data.has_prev %}
+        <a href="{{ url_for(current_route, page=data.prev_num) }}" class="pagination-previous">Previous</a>
+    {% else %}
+        <a class="pagination-previous" title="No previous page" disabled>Previous</a>
+    {% endif %}
+    
+    {% if data.has_next %}
+        <a href="{{ url_for(current_route, page=data.next_num) }}" class="pagination-next">Next</a>
+    {% else %}
+        <a class="pagination-next" title="No next page" disabled>Next</a>
+    {% endif %}
+
+    <ul class="pagination-list">
+        {% if data.prev_num and data.prev_num > 1 %}
+            <li><a href="{{ url_for(current_route) }}" class="pagination-link" aria-label="Goto page 1">1</a> </li>
+            <li><span class="pagination-ellipsis">&hellip;</span> </li>
+        {% endif %}
+        {% if data.has_prev %}
+            <li><a href="{{ url_for(current_route, page=data.prev_num) }}" class="pagination-link"
+                   aria-label="Goto page {{ data.prev_num }}">
+                {{ data.prev_num }}
+            </a></li>
+        {% endif %}
+
+        <li><a href="{{ url_for(current_route, page=data.page) }}" class="pagination-link is-current"
+               aria-label="Page {{ data.page }}" aria-current="page">
+            {{ data.page }}
+        </a></li>
+
+        {% if data.has_next %}
+            <li><a href="{{ url_for(current_route, page=data.next_num) }}" class="pagination-link"
+                   aria-label="Goto page {{ data.next_num }}">
+                {{ data.next_num }}
+            </a></li>
+        {% endif %}
+        {% if data.next_num and data.next_num < data.pages %}
+            <li><span class="pagination-ellipsis">&hellip;</span> </li>
+            <li><a
+                href="{{ url_for(current_route, page=data.pages) }}"
+                class="pagination-link"
+                aria-label="Goto page {{ data.pages }}"
+            > {{ data.pages }} </a></li>
+        {% endif %}
+    </ul>
+</nav>

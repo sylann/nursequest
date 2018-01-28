@@ -1,16 +1,39 @@
 {% extends '_base.html' %}
 
 {% block content %}
+    {% include '_title.html' %}
     <div class="container">
-        <h3>List of admitted patients:</h3>
-        <ul>
-            {% for patient in patients %}
-                <li>
-                    <a href="{{ url_for('get_patient', id=patient.id) }}">
-                        {{ patient.full_name }}
-                    </a>
-                </li>
-            {% endfor %}
-        </ul>
+        {% include '_pagination.html' %}
+        {% for patient in data.items %}
+            <div class="box">
+                <article class="media">
+                    <div class="media-left">
+                        <figure class="image is-64x64">
+                            <img src="https://bulma.io/images/placeholders/128x128.png" alt="Image">
+                        </figure>
+                    </div>
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ patient.full_name }}</strong> <small>{{ patient.job }}</small>
+                                <br><small>{{ patient.email }}</small>
+                                <br><small>{{ patient.phone }}</small>
+                                <br>{{ patient.social_number }}
+                                <br><strong>Latest admission</strong>: {{ patient.latest_admission }}
+                                <br>Assigned to nurse {{ patient.id_assigned_user }}
+                            </p>
+                        </div>
+                        <nav class="level is-mobile">
+                            <div class="level-left">
+                                <a class="level-item" href="{{ url_for('get_patient', id=patient.id) }}"> <span class="icon is-small"> <i class="fa fa-pencil"></i> </span> </a>
+                                <a class="level-item"> <span class="icon is-small"> <i class="fa fa-trash-o"></i> </span> </a>
+                                <a class="level-item"> <span class="icon is-small"> <i class="fa fa-address-book-o"></i> </span> </a>
+                            </div>
+                        </nav>
+                    </div>
+                </article>
+            </div>
+        {% endfor %}
+        {% include '_pagination.html' %}
     </div>
 {% endblock %}

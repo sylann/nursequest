@@ -1,5 +1,5 @@
 
-from flask import render_template
+from flask import render_template, request
 from sqlalchemy.exc import IntegrityError
 
 from app import app, db
@@ -10,8 +10,15 @@ from app.utils import generate_fake_patient, generate_random_list, generate_pati
 
 @app.route('/patients')
 def get_patients():
-    patients = Patient.query.all()
-    return render_template('patients.html', patients=patients)
+    page = request.args.get('page', default=1, type=int)
+    patients = Patient.query.paginate(page, 10, False)
+    return render_template(
+        'patients.html',
+        current_route='get_patients',
+        title='List of admitted patients',
+        subtitle='',
+        data=patients
+    )
 
 
 @app.route('/patients/<int:id>')

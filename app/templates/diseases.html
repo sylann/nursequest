@@ -1,19 +1,39 @@
 {% extends '_base.html' %}
 
 {% block content %}
+    {% include '_title.html' %}
     <div class="container">
-        <h3>List of all known diseases:</h3>
-        <form action="{{ url_for('get_diseases') }}" method="get">
-            <label for="search">
-                Search:
-                <input type="text" name="search" id="search" value="">
-            </label>
-            <input type="submit" value="Filter">
-        </form>
-        <ul>
-            {% for disease in diseases %}
-                <li><a href="{{ disease.link }}"> {{ disease.name }} </a></li>
+        <section class="columns">
+            <div class="column">
+                <form action="{{ url_for('get_diseases') }}" method="get">
+                    <div class="field has-addons">
+                        <div class="control">
+                            <input type="text" class="input" name="search" placeholder="Filter diseases" value="{{ searched }}">
+                        </div>
+                        <div class="control">
+                            <input type="submit" class="button is-info" value="search" />
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="column">
+                <div class="tags has-addons">
+                    <span class="tag is-medium">Refresh the list of diseases from source</span>
+                    <!-- <span class="tag is-info">Update</span> -->
+                    <a href="{{ url_for('refresh_diseases') }}" class="tag is-info is-medium">Update</a>
+                </div>
+            </div>
+        </section>
+
+        <section class="item-container">
+            {% include '_pagination.html' %}
+            {% for disease in data.items %}
+                <ul class="tile is-ancestor">
+                    <li class="tile is-parent compact"><a href="{{ disease.link }}" class="tile is-child box">{{ disease.name }}</a></li>
+                </ul>
             {% endfor %}
-        </ul>
+            {% include '_pagination.html' %}
+        </section>
+
     </div>
 {% endblock %}

@@ -1,0 +1,16 @@
+html,
+body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+}
+.container {
+    width: 75%;
+    margin: auto;
+    margin-top: 1.2rem;
+}
+
+.tile.compact {
+    padding: .4rem;
+    line-height: .4;
+}
