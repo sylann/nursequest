@@ -1,3 +1,5 @@
+import datetime
+
 from flask import request, render_template, redirect, url_for
 from sqlalchemy.exc import IntegrityError
 
@@ -30,7 +32,7 @@ def refresh_diseases():
         existing = Disease.query.filter_by(link=d.get('href')).first()
         if existing:
             continue
-        new_disease = Disease(name=d.text, link=d.get('href'))
+        new_disease = Disease(name=d.text, link=d.get('href'), added=datetime.datetime.now())
         db.session.add(new_disease)
     try:
         db.session.commit()

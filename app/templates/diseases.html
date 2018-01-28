@@ -22,7 +22,11 @@
             {% if data.items | count > 0 %}
                 {% for disease in data.items %}
                     <ul class="tile is-ancestor">
-                        <li class="tile is-parent compact"><a href="{{ disease.link }}" class="tile is-child box">{{ disease.name }}</a></li>
+                        <li class="tile is-parent compact">
+                            <a href="{{ disease.link }}" class="tile is-child box">
+                                {{ disease.name }}&nbsp;
+                                <small class="is-pulled-right has-text-grey">Added {{ disease.added.strftime('on %B, %d %Y at %H:%M') }}</small></a>
+                        </li>
                     </ul>
                 {% endfor %}
                 {% include '_pagination.html' %}
