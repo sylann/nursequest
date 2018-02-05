@@ -1,0 +1,33 @@
+sudo: false
+language: python
+python:
+  - "3.4"
+  - "3.5"
+  - "3.6"
+
+install:
+  # Packages installation
+  - sudo apt-get install python3
+  - sudo apt-get install python3-venv
+  - sudo apt-get install sqlite3
+  - pip install -U pip
+  - python3 -m venv .venv
+  - source .venv/bin/activate
+  # Git installation
+  - git init
+  - git remote add origin https://github.com/SylannBin/nursequest
+  - pit pull origin master
+  - pip install -r requirements.txt
+  - export FLASK_APP=run.py
+  # Database installation
+  - sqlite3 nursequest.db
+  - .tables
+  - .exit
+  - flask shell
+  - from app import db
+  - db.create_all()
+  - exit()
+
+# command to run tests
+script:
+  - "cd ${TRAVIS_BUILD_DIR} && py.test tests"
