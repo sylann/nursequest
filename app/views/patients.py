@@ -35,7 +35,17 @@ def get_patients():
 @app.route('/patients/<int:id>')
 def get_patient(id):
     patient = Patient.query.get(id)
-    return patient.full_name
+
+    return render_template(
+        'patient.html',
+        current_route='get_patient',
+        title=patient.full_name,
+        data=patient
+    )
+
+@app.route('/patients/new')
+def add_patient():
+    pass
 
 
 @app.route('/patients/fake/<int:quantity>')

@@ -18,7 +18,6 @@ def index():
 
 @app.route('/static/<path:path>')
 def get_static(path):
-    # print(path)
     try:
         return send_file(path_join(app.root_path, "static", path))
     except IOError as e:

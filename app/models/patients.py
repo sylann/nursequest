@@ -8,7 +8,12 @@ class CaughtDisease(db.Model):
     id_patient = db.Column(db.ForeignKey('patients.id', name='pk_fk_patient'), primary_key=True)
     id_disease = db.Column(db.ForeignKey('diseases.id', name='pk_fk_disease'), primary_key=True)
     contracted = db.Column(db.DateTime)
-    disease = db.relationship('Disease')
+    disease = db.relationship('Disease', uselist=False)
+
+    def __repr__(self):
+        return "<ContractedDisease(id_patient='{}', id_disease='{}', contracted={})>".format(
+            self.id_patient, self.id_disease, self.contracted)
+
 
 
 class Patient(db.Model):
