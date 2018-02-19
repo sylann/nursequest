@@ -5,15 +5,11 @@
 
     <div class="container">
     <p> TT </p>
-
-        {#        {{ data.id_assigned_user }}
-
-    <ul>    {{ data.diseases.disease }}#}
-        <ul>
-            {% for d in data.diseases %}
-                <li>{{ d.disease.name }}</li>
-            {% endfor %}
-        </ul>
+    <ul>
+        {% for d in data.diseases %}
+            <li>{{ d.disease.name }}</li>
+        {% endfor %}
+    </ul>
     </div>
 
 {% endblock %}
