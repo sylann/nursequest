@@ -42,3 +42,10 @@ class User(db.Model):
 
     def password_reset(self, reset_link):
         pass
+
+    def __repr__(self):
+        return "<User(id='{}', first_name='{}', last_name='{}', email='{}', password={}, hire_date={}, is_admin='{}')>".format(self.id, self.first_name, self.last_name, self.email,
+                                                                   self.password, self.hire_date, self.is_admin)
+
+
+

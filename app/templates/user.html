@@ -1,0 +1,18 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% include '_title.html' %}
+
+    <div class="container">
+
+            ID : {{ data.id }} <br>
+            Mail :{{ data.email }}<br>
+            Password : {{ data.password }}<br>
+            First_name : {{ data.first_name }}<br>
+            Last_name : {{ data.last_name }}<br>
+            Hire_date : {{ data.hire_date }}<br>
+            Is_admin : {{ data.is_admin }}
+
+        </div>
+
+{% endblock %}
