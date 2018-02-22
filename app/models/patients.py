@@ -15,7 +15,6 @@ class CaughtDisease(db.Model):
             self.id_patient, self.id_disease, self.contracted)
 
 
-
 class Patient(db.Model):
     __tablename__ = 'patients'
 
@@ -51,3 +50,8 @@ class Patient(db.Model):
             self.assigned_user.full_name, self.full_name)
         )
         self.id_assigned_user = None
+
+
+
+
+

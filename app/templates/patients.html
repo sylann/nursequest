@@ -7,13 +7,22 @@
         <div class="container">
             {% include '_searchbar.html' %}
         </div>
-        <div>
-            <a href="{{ url_for('add_patient') }}">Add patient</a>
-        </div>
+
     </section>
+
+
 
     <section class="section">
         <div class="container">
+
+            <div class="control">
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        <a class="button is-dark is-focused" href="{{ url_for('get_add_patient') }}">Add new</a>
+                    </div>
+                </div>
+            </div>
+            <br>
             {% if data.items | count > 0 %}
                 {% for patient in data.items %}
                     <div class="box">
@@ -26,19 +35,31 @@
                             <div class="media-content">
                                 <div class="content">
                                     <p>
-                                        <strong>{{ patient.full_name }}</strong> <small>{{ patient.job }}</small>
-                                        <br><small>{{ patient.email }}</small>
-                                        <br><small>{{ patient.phone }}</small>
+                                        <a class="patient_name"
+                                           href="{{ url_for('get_patient', id=patient.id) }}"><strong>{{ patient.full_name }}</strong></a>
+                                        <small>{{ patient.job }}</small>
+                                        <br>
+                                        <small>{{ patient.email }}</small>
+                                        <br>
+                                        <small>{{ patient.phone }}</small>
                                         <br>{{ patient.social_number }}
                                         <br><strong>Latest admission</strong>: {{ patient.latest_admission }}
-                                        <br>Assigned to nurse {{ patient.id_assigned_user }}
+                                        <br>
+                                        {% if patient.id_assigned_user == None %}
+                                            No assigned nurse
+                                        {% else %}
+                                            Assigned to nurse {{ patient.id_assigned_user }}
+                                        {% endif %}
                                     </p>
                                 </div>
                                 <nav class="level is-mobile">
                                     <div class="level-left">
-                                        <a class="level-item" href="{{ url_for('get_patient', id=patient.id) }}"> <span class="icon is-small"> <i class="fa fa-pencil"></i> </span> </a>
-                                        <a class="level-item"> <span class="icon is-small"> <i class="fa fa-trash-o"></i> </span> </a>
-                                        <a class="level-item"> <span class="icon is-small"> <i class="fa fa-address-book-o"></i> </span> </a>
+                                        <a class="level-item" href="{{ url_for('get_edit_patient', id=patient.id) }}">
+                                            <span class="icon is-small"> <i class="fa fa-pencil"></i> </span> </a>
+                                        <a class="level-item"> <span class="icon is-small"> <i
+                                                class="fa fa-trash-o"></i> </span> </a>
+                                        <a class="level-item"> <span class="icon is-small"> <i
+                                                class="fa fa-address-book-o"></i> </span> </a>
                                     </div>
                                 </nav>
                             </div>

@@ -1,10 +1,9 @@
 <h4 class="title is-4">Filter</h4>
-
 <p class="has-text-info">
     {% if  searched %}
-    Number of entries with current filter: 
+        Number of entries with current filter:
     {% else %}
-    Total number of entries: 
+        Total number of entries:
     {% endif %}
     {{ data.total }}
 </p>
@@ -15,7 +14,8 @@
             <input type="text" class="input" name="search" placeholder="Filter entries" value="{{ searched }}">
         </div>
         <div class="control">
-            <input type="submit" class="button is-info" value="search" />
+            <input type="submit" class="button is-info" value="search"/>
         </div>
     </div>
+
 </form>

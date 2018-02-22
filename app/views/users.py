@@ -6,6 +6,8 @@ from app import app, db
 from app.models.users import User
 from app.utils import generate_fake_user
 
+from pprint import pprint
+
 
 @app.route('/login')
 def login():
@@ -37,7 +39,12 @@ def get_users():
 @app.route('/users/<int:id>')
 def get_user(id):
     user = User.query.get(id)
-    return user.full_name
+    return render_template(
+        'user.html',
+        current_route='get_user',
+        title=user.full_name,
+        data=user
+    )
 
 
 @app.route('/users/fake/<int:quantity>')
