@@ -48,7 +48,7 @@ def get_patient(id):
         'patient.html',
         current_route='get_patient',
         title=patient.full_name,
-        data={'patient': patient, 'user': user }
+        data={'patient': patient, 'user': user}
     )
 
 @app.route('/patients/new')
@@ -79,9 +79,6 @@ def add_patient():
     latest_admission = datetime.datetime.now()
     contracted = datetime.datetime.strptime(request.form.get('contracted'), '%Y-%m-%d')
 
-    print('********************************************')
-    print(nurse_id)
-    print(type(nurse_id))
     if nurse_id == '0':
         nurse_id = None
 
@@ -136,11 +133,30 @@ def get_edit_patient(id):
         data={'users': users, 'patient': patient}
     )
 
-@app.route('/patients/edit/<int:id>')
+@app.route('/patient/edit/<int:id>', methods=['POST'])
 def edit_patient(id):
+    # Todo : Vérifier que l'id existe ?
+    print('*********************************************')
+    print(id)
+    patient = Patient.query.get(id)
 
+    nurse_id = request.form.get('nurse')
+    patient.first_name = request.form.get('first_name')
+    patient.last_name = request.form.get('last_name')
+    patient.address = request.form.get('address')
+    patient.email = request.form.get('email')
+    patient.phone = request.form.get('phone')
+    patient.job = request.form.get('job')
 
-    redirect(url_for('get_patients'))
+    if nurse_id == '0':
+        patient.id_assigned_user = None
+    else:
+        patient.id_assigned_user = nurse_id
+
+    db.session.flush()
+    db.session.commit()
+
+    return redirect(url_for('get_patients'))
 
 @app.route('/patients/fake/<int:quantity>')
 def fake_patients(quantity):

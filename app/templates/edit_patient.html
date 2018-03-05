@@ -6,89 +6,123 @@
     <section class="section">
         <div class="container">
 
-            <form method="post" action="{{ url_for('edit_patient', id=data.patient.id) }}" enctype="multipart/form-data">
+            <form method="post" action="{{ url_for('edit_patient', id=data.patient.id) }}"
+                  enctype="multipart/form-data">
 
-                <div class="field">
-                    <label class="label">Nurse</label>
-                    <div class="control">
-                        <div class="select" name="disease">
-                            <select name="nurse">
+                <div class="columns">
 
-                                {% if data.patient.id_assigned_user == None %}
-                                    <option value="0" selected>No assigned nurse</option>
-                                {% endif %}
+                    <div class="column">
 
-                                {% for user in data.users %}
+                        <h3 class="title is-3">Medical</h3>
 
-                                    {% if data.patient.id_assigned_user == user.id %}
-                                        <option value="{{ user.id }}" selected>{{ user.full_name }}</option>
-                                    {% elif data.patient.id_assigned_user != user.id %}
-                                        <option value="{{ user.id }}">{{ user.full_name }}</option>
-                                    {% endif %}
+                        <div class="field">
+                            <label class="label">Nurse</label>
+                            <div class="control">
+                                <div class="select">
+                                    <select name="nurse">
 
+                                        {% if data.patient.id_assigned_user == None %}
+                                            <option value="0" selected>No assigned nurse</option>
+                                        {% else %}
+                                            <option value="0">No assigned nurse</option>
+                                        {% endif %}
 
-                                {% endfor %}
-                            </select>
+                                        {% for user in data.users %}
+
+                                            {% if data.patient.id_assigned_user == user.id %}
+                                                <option value="{{ user.id }}" selected>{{ user.full_name }}</option>
+                                            {% elif data.patient.id_assigned_user != user.id %}
+                                                <option value="{{ user.id }}">{{ user.full_name }}</option>
+                                            {% endif %}
+
+                                        {% endfor %}
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Social number</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ data.patient.social_number }}" readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Latest admission</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ data.patient.latest_admission }}" readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Latest medical exam</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ data.patient.latest_medical_exam }}"
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <table class="table is-striped">
+                            <thead>
+                            <th>Name</th>
+                            <th>Date</th>
+                            </thead>
+
+                            <tbody>
+                            {% for d in data.patient.diseases %}
+                                <tr>
+                                    <th>{{ d.disease.name }}</th>
+                                    <th>{{ d.disease.added }}</th>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="column">
+                        <h3 class="title is-3">Patient</h3>
+
+                        <div class="field">
+                            <label class="label">First name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="first_name" value="{{ data.patient.first_name }}"
+                                       required>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Last name</label>
+                            <div class="control">
+                                <input class="input" type="text" name="last_name" value="{{ data.patient.last_name }}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Address</label>
+                            <div class="control">
+                                <input class="input" type="text" name="address" value="{{ data.patient.address }}"
+                                       required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="text" name="email" value="{{ data.patient.email }}">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Phone</label>
+                            <div class="control">
+                                <input class="input" type="text" name="phone" value="{{ data.patient.phone }}" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Job</label>
+                            <div class="control">
+                                <input class="input" type="text" name="job" value="{{ data.patient.job }}">
+                            </div>
                         </div>
                     </div>
                 </div>
-
-                <div class="field">
-                    <label class="label">First Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="First name" name="first_name"
-                               value="{{ data.patient.first_name }}" readonly>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Last Name</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Last name" name="last_name"
-                               value="{{ data.patient.last_name }}" readonly>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Address</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Address" name="address"
-                               value="{{ data.patient.address }}" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Email</label>
-                    <div class="control">
-                        <input class="input" type="email" placeholder="Email" name="email"
-                               value="{{ data.patient.email }}" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Phone</label>
-                    <div class="control">
-                        <input class="input" type="tel" placeholder="Phone" name="phone"
-                               value="{{ data.patient.phone }}" required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Job</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Job" name="job" value="{{ data.patient.job }}"
-                               required>
-                    </div>
-                </div>
-
-                <div class="field">
-                    <label class="label">Social number</label>
-                    <div class="control">
-                        <input class="input" type="text" placeholder="Social number" name="social_number"
-                               value="{{ data.patient.social_number }}" readonly>
-                    </div>
-                </div>
-
                 <div class="field is-grouped is-grouped-right">
                     <div class="control">
                         <button class="button is-text">Cancel</button>
@@ -99,10 +133,7 @@
                         </div>
                     </div>
                 </div>
-
             </form>
-
         </div>
     </section>
-
 {% endblock %}
