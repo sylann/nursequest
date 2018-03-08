@@ -23,7 +23,7 @@ def get_patients():
             Patient.last_name.ilike('%' + searched + '%'),
             Patient.email.ilike('%' + searched + '%'),
             Patient.social_number.ilike('%' + searched + '%')
-        ))
+        )).filter(Patient.is_active)
     patients = q.paginate(page, 10, False)
     return render_template(
         'patients.html',
@@ -133,11 +133,19 @@ def get_edit_patient(id):
         data={'users': users, 'patient': patient}
     )
 
+@app.route('/patient/delete/<int:id>')
+def delete_patient(id):
+    patient = Patient.query.get(id)
+    patient.is_active = False
+    patient.id_assigned_user = None
+    db.session.flush()
+    db.session.commit()
+
+    return redirect(url_for('get_patients'))
+
 @app.route('/patient/edit/<int:id>', methods=['POST'])
 def edit_patient(id):
     # Todo : Vérifier que l'id existe ?
-    print('*********************************************')
-    print(id)
     patient = Patient.query.get(id)
 
     nurse_id = request.form.get('nurse')

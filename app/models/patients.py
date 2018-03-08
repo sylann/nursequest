@@ -31,6 +31,7 @@ class Patient(db.Model):
     diseases = db.relationship('CaughtDisease')
     id_assigned_user = db.Column(db.Integer, db.ForeignKey(User.id, name="fk_assigned_user_id"))
     assigned_user = db.relationship('User', lazy='joined', backref=db.backref('patients', lazy=True))
+    is_active = db.Column(db.Boolean, default=True)
 
     @property
     def full_name(self):
