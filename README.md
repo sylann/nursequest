@@ -1,51 +1,36 @@
-# Nurse Quest
+# WETA
+# Workshop Enhanced Token Administration
 
-## Membres d'équipe
+# Initial Project forked thanks to https://github.com/SylannBin
 
-- Nicolas Bouyssounousse
-- Romain Vincent
-- Yaniss Fournet
-- Michael Martinez
+## Team Members :
+
 - Valentin Mele
-- Alexis Clément
+- William Besseau
+- Michael Martinez
+- Adrien Ceccaldi
 
-## Objectifs
+## Objectives :
 
-Créer une plateforme de gestion de patients pour infirmières qui aura comme fonctionnalités:
+Create a token administration platform used by several types of users for EPSI Workshops.
 
-### Fonctionnalitées attendues
-- Page d’accueil qui affiche les différents patients gérés par l’infirmière
-- Pouvoir Créer/modifier/supprimer une rubrique patient
-- Une rubrique patient contient:
-    - Nom,
-    - Prénom
-    - Numéro de sécurité sociale (générez automatiquement)
-    - Pathologie
-    - Date de la plus récente visite
-- Gérer les utilisateurs :
-    - login/register
-    - Gestion de mots de passes oubliés
-    - Gestion des patients d’une infirmière (affectation/ non affectation)
+### Attended features : 
+
+- TBA
+- TBA
+- TBA
+- TBA
+- TBA
 
 
-## Choix technologiques
+## Techs :
 
-- Backend:
-    - Serveur: Flask
-    - ORM : SQLAlchemy
-    - Base de données : sqlite 
-    - Hébergement/support: heroku, python anywhere, ... ?
-- Front-end:
-    - Application client: Static
-    - Générateur de template: Jinja2
-    - Template css: Bootstrap, Bulma ?
-    - Preprocesseur css: Aucun
-- Gestion de configuration : git
-- Hébergement code source: Github
-- Intégration continue: Travis CI, jenkins ?
-- Tests unitaires: Unittest, Pytest ?
+- Backend : TBA
+- Front-end : TBA
+- Versionning system : Github
+- Continuous Integration : VSTS - Agile Mode
 
-# Installation du projet en local
+# Local installation of the project
 
 ## Linux
 ```bash
@@ -70,40 +55,29 @@ pip install -r requirements.txt
 SET FLASK_APP=run.py
 ```
 
-### Mac
-```bash
-brew install python
-pip3 install virtualenv
-python3 -m virtualenv .venv
-source .venv/bin/activate
-pip install -r requirements.txt
-export FLASK_APP=run.py
-```
-
-## Création de la base de données
+## Database Integration
 ```bash
 $ sqlite3 nursequest.db
-# .tables liste normalement les tables existentes.
-# Mais ici il va surtout tromper sqlite et le forcer à créer la db.
+# .tables usually list existing tables but there it'll just force sqlite to create the db
 sqlite> .tables
-# Sortir du shell sqlite
+# Exit sqlite shell
 sqlite> .exit
-# Démarrer le shell python avec le context de l'application
+# Start python shell
 $ flask shell
 >>> from app import db
 >>> db.create_all()
 >>> exit()
-# Voilà
 ```
 
-## Lancer le serveur (dev)
+## Run server (dev)
 
 ```bash
 flask run --reload
 ```
 
-## J'ai besoin d'aide
-[Solution à votre problème ici](https://www.google.fr/search?q=insert+problem+here)
+## Help 
+
+[Google](https://www.google.fr/search?q=insert+problem+here)
 
 [Flask](http://flask.pocoo.org/docs/0.12/quickstart/)
 
@@ -115,9 +89,7 @@ flask run --reload
 
 [Font awesome icons](http://fontawesome.io/icons/)
 
-[Toujours pas trouvé de solution ?](mailto:romainfvincent@gmail.com)
-
-# Organisation de l'application
+# Organization
 ## Routes:
 
 - POST /register
@@ -136,7 +108,7 @@ flask run --reload
 - GET /diseases
 - GET /diseases/update
 
-## Routes temporaires
+## Routes temp
 
 - GET /users/fake/<quantity>
 - GET /patients/fake/<quantity>
