@@ -55,7 +55,7 @@ SET FLASK_APP=run.py
 
 ## Database Integration
 ```bash
-$ sqlite3 nursequest.db
+$ sqlite3 weta.db
 # .tables usually list existing tables but there it'll just force sqlite to create the db
 sqlite> .tables
 # Exit sqlite shell
