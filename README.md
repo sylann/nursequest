@@ -1,7 +1,5 @@
-# WETA
-# Workshop Enhanced Token Administration
-
-# Initial Project forked thanks to https://github.com/SylannBin
+# WETA - Workshop Enhanced Token Administration
+*Initial Project forked thanks to https://github.com/SylannBin*
 
 ## Team Members :
 
@@ -89,7 +87,7 @@ flask run --reload
 
 [Font awesome icons](http://fontawesome.io/icons/)
 
-# Organization
+# Organization - To Be Modified
 ## Routes:
 
 - POST /register
