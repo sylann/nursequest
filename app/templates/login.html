@@ -1,11 +1,35 @@
 {% extends '_base.html' %}
 
 {% block content %}
-<h3 class="title is-3">Enter your credentials here.</h3>
+    {% include '_title.html' %}
 
-<p>
-    Troubles finding the form?
-    <br>
-    <strong>Don't bother!</strong> It does not exist yet.
-</p>
+    <section class="section">
+        <div class="container">
+
+            <label class="label">Entrez vos données de connexion :</label>
+
+            <form method="post" action="" enctype="multipart/form-data">
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="text" placeholder="Login" name="login" required>
+                    </div>
+                </div>
+
+                <div class="field">
+                    <div class="control">
+                        <input class="input" type="password" placeholder="Password" name="password" required>
+                    </div>
+                </div>
+                <div class="notification">
+                Pas encore de compte ? <a href="/sign-in">S'enregistrer</a> | <a href="/reset-password">Mot de passe oublié</a>
+                </div>
+                <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link">Se connecter</button>
+                        </div>
+                    </div>
+            </form>
+        </div>
+    </section>
 {% endblock %}
