@@ -43,19 +43,19 @@ $ export FLASK_APP=run.py
 ```
 
 ## Windows
-First use installer for python3, then in cmd.exe:
+First use installer for python3, then in cmd.exe as administrator :
 ```bash
 pip install -U pip
 pip install virtualenv
 python -m virtualenv .venv
-.venv/Scripts/activate
+.venv\Scripts\activate
 pip install -r requirements.txt
 SET FLASK_APP=run.py
 ```
 
 ## Database Integration
 ```bash
-$ sqlite3 nursequest.db
+$ sqlite3 weta.db
 # .tables usually list existing tables but there it'll just force sqlite to create the db
 sqlite> .tables
 # Exit sqlite shell

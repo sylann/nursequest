@@ -4,7 +4,6 @@ from sqlalchemy.exc import IntegrityError
 
 from app import app, db
 from app.models.users import User
-from app.utils import generate_fake_user
 
 from pprint import pprint
 
