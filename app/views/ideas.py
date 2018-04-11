@@ -5,9 +5,8 @@ from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 import datetime
 
-from app import app
+from app import app, db
 from app.models.ideas import Ideas
-
 
 @app.route('/ideas')
 def get_ideas():

@@ -9,8 +9,6 @@ class Ideas(db.Model):
     title = db.Column(db.String)
     description = db.Column(db.String)
 
-    tags = db.relationship('IdeaTag')
-
     id_student = db.Column(db.Integer, db.ForeignKey(Student.id, name="fk_student_id"))
     assigned_student = db.relationship('Student', lazy='joined')
 

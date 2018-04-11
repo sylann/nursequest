@@ -6,12 +6,6 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
-from app.models.teams import Team
+from app.models.needs import Need
 
-@app.route('/teams')
-def get_teams():
-    return render_template(
-        'teams.html',
-        current_route='get_teams',
-        title='Liste des équipes'
-    )
+
