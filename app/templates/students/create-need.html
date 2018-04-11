@@ -1,10 +1,72 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends '_base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {% include '_title.html' %}
+
+    <section class="section">
+        <div class="container">
+
+            <form method="post" action="{{ url_for('create_need') }}"
+                  enctype="multipart/form-data">
+
+                <div class="columns">
+
+                    <div class="column">
+
+                        <h3 class="title is-3">Demande</h3>
+
+
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="hidden" name="speaker_id" value="{{ data.speaker.id }}">
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Intervenant</label>
+                            <div class="control">
+                                <input class="input" type="text" name="speaker_full" value="{{ data.speaker.user.full_name }}"
+                                       readonly>
+                            </div>
+                        </div>
+
+                        <div class="field">
+                            <label class="label">Libellé</label>
+                            <div class="control">
+                                <input class="input" type="text" name="title" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <input class="input" type="text" name="description" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Jetons estimés</label>
+                            <div class="control">
+                                <input class="input" type="number" name="estimated_tokens" required>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <h1 class="title">{{ data.student.team.tokens }}</h1>
+                        <h2 class="subtitle">Jetons restants</h2>
+                    </div>
+                </div>
+
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        <button class="button is-text">Cancel</button>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link">Submit</button>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}
