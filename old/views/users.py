@@ -12,6 +12,9 @@ from pprint import pprint
 def login():
     return render_template('login.html')
 
+@app.route('/forgotten-password')
+def forgottenpwd():
+    return render_template('forgotten-password.html')
 
 @app.route('/users')
 def get_users():
