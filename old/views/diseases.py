@@ -5,6 +5,8 @@ from sqlalchemy.exc import IntegrityError
 
 from app import app, db
 from app.models.diseases import Disease
+from app.models.models_old.diseases import Disease
+from old.utils import get_all_diseases
 
 
 @app.route('/diseases')
