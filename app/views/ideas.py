@@ -5,27 +5,29 @@ from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 import datetime
 
-from app import app, db
-from app.models.patients import Patient
+from app import app
+from app.models.ideas import Ideas
+
 
 @app.route('/ideas')
 def get_ideas():
-    q = Patient.query
+    q = Ideas.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Patient.first_name.ilike('%' + searched + '%'),
-            Patient.last_name.ilike('%' + searched + '%'),
-            Patient.email.ilike('%' + searched + '%'),
-            Patient.social_number.ilike('%' + searched + '%')
+            Ideas.id.ilike('%' + searched + '%'),
+            Ideas.id_student.ilike('%' + searched + '%'),
+            Ideas.title.ilike('%' + searched + '%'),
+            Ideas.description.ilike('%' + searched + '%'),
+            Ideas.tags.ilike('%' + searched + '%')
         ))
-    patients = q.paginate(page, 10, False)
+    ideas = q.paginate(page, 15, False)
+    print(ideas)
     return render_template(
-        'patients.html',
-        current_route='get_patients',
-        title='List of admitted patients',
-        subtitle='',
-        data=patients,
+        'ideas.html',
+        current_route='get_ideas',
+        title='Liste des idées de projets proposées',
+        data=ideas,
         searched=searched
     )

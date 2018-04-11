@@ -10,9 +10,16 @@ from app.models.users import User
 def login():
     return render_template('login.html')
 
+
 @app.route('/forgotten-password')
 def forgottenpwd():
     return render_template('forgotten-password.html')
+
+
+@app.route('/ideas')
+def login():
+    return render_template('ideas.html')
+
 
 @app.route('/users')
 def get_users():

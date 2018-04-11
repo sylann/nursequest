@@ -1,0 +1,25 @@
+{% extends '_base.html' %}
+
+{% block content %}
+{% include '_title.html' %}
+    <div class="container">
+        <div class="card">
+            <header class="card-header">
+                <p class="card-header-title"> Disponibilités </p>
+                <a href="#" class="card-header-icon">
+                    <span class="icon">
+                        <i class="fa fa-angle-down"></i>
+                    </span>
+                </a>
+            </header>
+            <div class="card-content">
+                <div class="content">
+                    <p>Disponibilités</p>
+                </div>
+            </div>
+            <footer class="card-footer">s
+                <a href="{{ url_for('index') }}" class="card-footer-item">Retour à l'accueil</a>
+            </footer>
+        </div>
+    </div>
+{% endblock %}
