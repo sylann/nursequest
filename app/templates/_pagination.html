@@ -1,15 +1,15 @@
 
 <nav class="pagination is-centered" role="navigation" aria-label="pagination">
     {% if data.has_prev %}
-        <a href="{{ url_for(current_route, page=data.prev_num) }}" class="pagination-previous">Previous</a>
+        <a href="{{ url_for(current_route, page=data.prev_num) }}" class="pagination-previous">Précédent</a>
     {% else %}
-        <a class="pagination-previous" title="No previous page" disabled>Previous</a>
+        <a class="pagination-previous" title="No previous page" disabled>Précédent</a>
     {% endif %}
     
     {% if data.has_next %}
-        <a href="{{ url_for(current_route, page=data.next_num) }}" class="pagination-next">Next</a>
+        <a href="{{ url_for(current_route, page=data.next_num) }}" class="pagination-next">Suivant</a>
     {% else %}
-        <a class="pagination-next" title="No next page" disabled>Next</a>
+        <a class="pagination-next" title="No next page" disabled>Suivant</a>
     {% endif %}
 
     <ul class="pagination-list">

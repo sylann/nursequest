@@ -8,14 +8,15 @@ import datetime
 from app import app, db
 from app.models.ideas import Ideas
 
+
 @app.route('/ideas')
 def get_ideas():
     q = Ideas.query
+    print(q)
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Ideas.id.ilike('%' + searched + '%'),
             Ideas.title.ilike('%' + searched + '%'),
             Ideas.description.ilike('%' + searched + '%')
         ))
@@ -28,4 +29,14 @@ def get_ideas():
         subtitle='',
         data=ideas,
         searched=searched
+    )
+
+
+@app.route('/new_idea')
+def new_idea():
+    return render_template(
+        'new_idea.html',
+        current_route='new_idea',
+        title='Proposez une nouvelle idée de projet',
+        subtitle=''
     )

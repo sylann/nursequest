@@ -1,25 +1,38 @@
 {% extends '_base.html' %}
 
 {% block content %}
-{% include '_title.html' %}
-    <div class="container">
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title"> Idées </p>
-                <a href="#" class="card-header-icon">
-                    <span class="icon">
-                        <i class="fa fa-angle-down"></i>
-                    </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    <p>Ideas</p>
+    {% include '_title.html' %}
+    <section class="section">
+        <div class="container">
+            {% include '_searchbar.html' %}
+            <div class="control">
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        <a class="button is-dark is-focused" href="{{ url_for('get_ideas') }}">Ajouter une nouvelle idée</a>
+                    </div>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a href="{{ url_for('index') }}" class="card-footer-item">Retour à l'accueil</a>
-            </footer>
+            <br>
+            {% if data.items | count > 0 %}
+                {% for idea in data.items %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <a href="{{ url_for('get_ideas', id=idea.id) }}"><strong>{{ idea.title }}</strong></a>
+                                        <small>- Initiateur : <a  href="mailto:{{ idea.student.user.email }} ?subject=Workshop EPSI - Idée {{ idea.title }}" >{{ idea.student.user.full_name }}</a></small>
+                                        <br> {{ idea.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            {% else %}
+                <p>Aucune idée n'a encore été proposée !</p>
+            {% endif %}
         </div>
-    </div>
+    </section>
 {% endblock %}
