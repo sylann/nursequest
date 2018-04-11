@@ -11,8 +11,8 @@ from app import app
 def index():
     return render_template(
         'home.html',
-        title='Welcome to Nurse Quest!',
-        subtitle='Take care of your patients'
+        title='Bienvenue sur WETA !',
+        subtitle='Workshop Enhanced Token Administration'
     )
 
 
