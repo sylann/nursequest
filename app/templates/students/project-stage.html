@@ -3,18 +3,60 @@
 {% block content %}
 
     {% include '_title.html' %}
-    <div class="container">
-        {{ data.student.team.project.title }} <br>
-        {{ data.student.team.project.description }} <br>
 
 
-        {{ data.student.team.token_number }}<br>
+    <section class="section">
+        <div class="container">
 
-    <ul>
-        {% for need in data.team_needs %}
-           <li>{{ need.title }} -- {{ need.speaker.user.full_name }}</li>
-        {% endfor %}
-    </ul>
+            <div class="columns">
+                <div class="column">
+                    {% include '_searchbar.html' %}
+                </div>
+                <div class="column">
+                    <h1 class="title">{{ student.team.tokens }}</h1>
+                    <h2 class="subtitle">Jetons restants</h2>
 
-    </div>
+                    <div class="control">
+                        <div class="field is-grouped is-grouped-right">
+                            <div class="control">
+                                <a class="button is-dark is-focused" href="{{ url_for('get_select_speaker') }}">Nouvelle
+                                    demande</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+
+
+
+    <section class="section">
+        <div class="container">
+
+
+            {% if data.items | count > 0 %}
+                {% for need in data.items %}
+
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ need.title }}</strong>
+                                        <small>{{ need.speaker.user.full_name }}</small>
+                                        --
+                                        <small>{{ need.estimated_tokens }} estimated tokens</small>
+                                        <br>
+                                        {{ need.description }}
+                                    </p>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </section>
 {% endblock %}
