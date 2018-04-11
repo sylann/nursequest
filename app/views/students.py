@@ -6,7 +6,17 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
-from app.models.patients import Patient
+from app.models.students import Student
+
+
+@app.route('/student/dashboard/<int:id>')
+def get_student_dashboard(id):
+    print('TTTTTTTTTTTTTTTTTTTTTTTTT PASSSE ICI')
+    student = Student.query.get(id)
+    print(student)
+
+    return render_template('students/dashboard.html',
+                           data={'student': student})
 
 @app.route('/student')
 def get_student():

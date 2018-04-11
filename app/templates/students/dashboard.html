@@ -1,0 +1,42 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+    {% include '_title.html' %}
+    <div class="container">
+
+        <div class="level-left">
+            <div class="card">
+                <header class="card-header">
+                    <p class="card-header-title">Entrez vos données de connexion :</p>
+                </header>
+                <div class="card-content">
+                    <form method="post" action="" enctype="multipart/form-data">
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="text" placeholder="Login" name="login" required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="password" placeholder="Password" name="password" required>
+                            </div>
+                        </div>
+                        <nav class="breadcrumb has-bullet-separator" aria-label="breadcrumbs">
+                            <ul>
+                                <p>Pas encore de compte ?</p>
+                                <li><a href="#">S'enregistrer</a></li>
+                                <li><a href="/forgotten-password">Mot de passe oublié</a></li>
+                            </ul>
+                        </nav>
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link">Se connecter</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}
