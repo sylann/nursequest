@@ -4,13 +4,14 @@
 
     {% include '_title.html' %}
     <div class="container">
+
         <div class="level-left">
             <div class="card">
                 <header class="card-header">
                     <p class="card-header-title">Entrez vos données de connexion :</p>
                 </header>
                 <div class="card-content">
-                    <form method="post" action="{{ url_for('login') }}" enctype="multipart/form-data">
+                    <form method="post" action="" enctype="multipart/form-data">
                         <div class="field">
                             <div class="control">
                                 <input class="input" type="text" placeholder="Login" name="login" required>
@@ -28,7 +29,6 @@
                                 <li><a href="/forgotten-password">Mot de passe oublié</a></li>
                             </ul>
                         </nav>
-                        <p class="has-text-danger">{{ error }}</p><br>
                         <div class="field is-grouped">
                             <div class="control">
                                 <button class="button is-link">Se connecter</button>

@@ -9,7 +9,6 @@ class Project(db.Model):
     max_members = db.Column(db.Integer)
     token_number = db.Column(db.Integer)
     description = db.Column(db.String)
-    availabilities = db.relationship('Teams')
 
     def __repr__(self):
         return "<Project (id='{}, min_members='{}', max_members='{}', token_number='{}', description='{}')>".format(
