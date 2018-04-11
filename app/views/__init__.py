@@ -16,6 +16,32 @@ def index():
     )
 
 
+@app.route('/')
+def ideas():
+    return render_template(
+        'ideas.html',
+        title='Liste des idées proposées'
+    )
+
+
+@app.route('/')
+def projects():
+    return render_template(
+        'projects.html',
+        title='Bienvenue sur WETA !',
+        subtitle='Workshop Enhanced Token Administration'
+    )
+
+
+@app.route('/')
+def teams():
+    return render_template(
+        'teams.html',
+        title='Bienvenue sur WETA !',
+        subtitle='Workshop Enhanced Token Administration'
+    )
+
+
 @app.route('/static/<path:path>')
 def get_static(path):
     try:
