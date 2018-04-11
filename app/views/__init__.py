@@ -1,10 +1,10 @@
 from os.path import join as path_join
 
-from flask import send_file
+from flask import render_template, send_file
+from flask import Blueprint
 
-from app.views.users import *
-from app.views.patients import *
-from app.views.diseases import *
+from app.models import availabilities, ideas, needs, projects, speakers, students, tags, teams, users
+from app import app
 
 
 @app.route('/')

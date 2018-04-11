@@ -3,15 +3,13 @@ from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 
 from app import app, db
-from app.models.users import User
-from app.utils import generate_fake_user
-
-from pprint import pprint
+from app.models.models_old.users import User
+from old.utils import generate_fake_user
 
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return render_template('old/login.html')
 
 
 @app.route('/users')
@@ -27,7 +25,7 @@ def get_users():
         ))
     users = q.paginate(page, 10, False)
     return render_template(
-        'users.html',
+        'old/users.html',
         current_route='get_users',
         title='List of hired nurses',
         subtitle='',
@@ -40,7 +38,7 @@ def get_users():
 def get_user(id):
     user = User.query.get(id)
     return render_template(
-        'user.html',
+        'old/user.html',
         current_route='get_user',
         title=user.full_name,
         data=user

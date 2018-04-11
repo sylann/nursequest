@@ -5,7 +5,7 @@ import requests
 from bs4 import BeautifulSoup
 from faker import Faker
 
-from app.models.users import User
+from app.models.models_old.users import User
 
 WEBSITE_URL = 'https://www.medicinenet.com'
 ALPHABET = 'abcdefghijklmnopqrstuvwxyz'

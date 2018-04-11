@@ -6,10 +6,10 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
-from app.models.diseases import Disease
-from app.models.patients import Patient, CaughtDisease
-from app.models.users import User
-from app.utils import generate_fake_patient, generate_random_list, generate_patient_date, fake
+from app.models.models_old.diseases import Disease
+from app.models.models_old.patients import Patient, CaughtDisease
+from app.models.models_old.users import User
+from old.utils import generate_fake_patient, generate_random_list, generate_patient_date, fake
 
 
 @app.route('/patients')
@@ -26,7 +26,7 @@ def get_patients():
         ))
     patients = q.paginate(page, 10, False)
     return render_template(
-        'patients.html',
+        'old/patients.html',
         current_route='get_patients',
         title='List of admitted patients',
         subtitle='',
@@ -45,7 +45,7 @@ def get_patient(id):
         # TODO : To be finished
 
     return render_template(
-        'patient.html',
+        'old/patient.html',
         current_route='get_patient',
         title=patient.full_name,
         data={'patient': patient, 'user': user }
@@ -58,7 +58,7 @@ def get_add_patient():
     diseases = Disease.query.all()
 
     return render_template(
-        'add_patient.html',
+        'old/add_patient.html',
         current_route='get_add_patient',
         title='Add patient',
         data={'users': users, 'diseases': diseases}
@@ -130,7 +130,7 @@ def get_edit_patient(id):
     users = User.query.all()
 
     return render_template(
-        'edit_patient.html',
+        'old/edit_patient.html',
         current_route='get_update_patient',
         title='Edit ' + patient.full_name,
         data={'users': users, 'patient': patient}
