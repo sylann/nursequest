@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
-from app.models.patients import Patient
+from app.models.ideas import Ideas
 
 @app.route('/ideas')
 def get_ideas():
