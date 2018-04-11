@@ -5,6 +5,7 @@ class Project(db.Model):
     __tablename__ = 'projects'
 
     id = db.Column(db.Integer, primary_key=True)
+    title = db.Column(db.String)
     min_members = db.Column(db.Integer)
     max_members = db.Column(db.Integer)
     token_number = db.Column(db.Integer)

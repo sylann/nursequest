@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends '_base.html' %}
 
-</body>
-</html>
+{% block content %}
+
+    {% include '_title.html' %}
+    <div class="container">
+        {{ data.student.team.project.title }} <br>
+        {{ data.student.team.project.description }} <br>
+
+
+        {{ data.student.team.token_number }}<br>
+
+    <ul>
+        {% for need in data.team_needs %}
+           <li>{{ need.title }} -- {{ need.speaker.user.full_name }}</li>
+        {% endfor %}
+    </ul>
+
+    </div>
+{% endblock %}
