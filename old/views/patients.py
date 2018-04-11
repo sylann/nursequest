@@ -1,14 +1,10 @@
-from pprint import pprint
-
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
-from app import app, db
+from app import app
 from app.models.diseases import Disease
-from app.models.patients import Patient, CaughtDisease
-from app.models.users import User
+from app.models.patients import Patient
+from app.views.users import User
 
 
 @app.route('/patients')

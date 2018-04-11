@@ -1,5 +1,5 @@
 from app.models import db
-from app.models.users import User
+from app.views.users import User
 
 
 class Speaker(db.Model):

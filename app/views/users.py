@@ -1,8 +1,7 @@
 from flask import render_template, request
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
 
-from app import app, db
+from app import app
 from app.models.users import User
 
 
@@ -45,18 +44,3 @@ def get_user(id):
         title=user.full_name,
         data=user
     )
-
-
-@app.route('/users/fake/<int:quantity>')
-def fake_users(quantity):
-    i = 0
-    while i < quantity:
-        new_user = User(**generate_fake_user())
-        db.session.add(new_user)
-        try:
-            db.session.commit()
-            i += 1
-        except IntegrityError:
-            db.session.rollback()
-            return "Server Error", 500
-    return "OK", 200
