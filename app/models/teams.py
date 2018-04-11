@@ -12,7 +12,7 @@ class Team(db.Model):
     description = db.Column(db.String)
 
     id_assigned_project = db.Column(db.Integer, db.ForeignKey(Project.id, name="fk_assigned_project_id"))
-    assigned_project = db.relationship('Project', lazy='joined')
+    project = db.relationship('Project', lazy='joined')
 
     def __repr__(self):
         return "<Team (id='{}, name='{}', logo='{}', tokens='{}', description='{}', id_assigned_project='{}')>".format(

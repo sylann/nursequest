@@ -1,22 +1,31 @@
 from pprint import pprint
 
 from flask import render_template, request, redirect, url_for
-from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
+from sqlalchemy import cast
 import datetime
 
 from app import app, db
 from app.models.students import Student
+from app.models.needs import Need
 
 
 @app.route('/student/dashboard/<int:id>')
 def get_student_dashboard(id):
-    print('TTTTTTTTTTTTTTTTTTTTTTTTT PASSSE ICI')
     student = Student.query.get(id)
-    print(student)
+    print(student.team.project)
+    print(student.team)
 
-    return render_template('students/dashboard.html',
-                           data={'student': student})
+    needs = Need.query.filter_by(id_assigned_team=student.team.id).all()
+    print('TTTTTTTTTTTTTTt', needs)
+
+    #Team : Name, tokens restants
+    #Projet : titre / desc
+    #Needs : intervenant / nb tokens
+
+    return render_template('students/project-stage.html',
+                           data={'student': student,
+                                 'team_needs': needs},
+                           title='Dashboard')
 
 @app.route('/student')
 def get_student():

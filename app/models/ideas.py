@@ -10,7 +10,7 @@ class Ideas(db.Model):
     description = db.Column(db.String)
 
     id_student = db.Column(db.Integer, db.ForeignKey(Student.id, name="fk_student_id"))
-    assigned_student = db.relationship('Student', lazy='joined')
+    student = db.relationship('Student', lazy='joined')
 
     def __repr__(self):
         return "<Ideas (id='{}, title='{}', description='{}', id_student='{}')>".format(

@@ -13,7 +13,7 @@ class Student(db.Model):
     user = db.relationship('User', lazy='joined')
 
     id_assigned_team = db.Column(db.Integer, db.ForeignKey(Team.id, name="fk_assigned_team_id"))
-    assigned_team = db.relationship('Team', lazy='joined')
+    team = db.relationship('Team', lazy='joined')
 
     def __repr__(self):
         return "<Student (id='{}, degree='{}', id_user='{}', id_assigned_team='{}')>".format(

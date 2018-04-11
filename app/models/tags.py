@@ -30,7 +30,7 @@ class Tag(db.Model):
     type = db.Column(db.Unicode)
 
     id_assigned_user = db.Column(db.Integer, db.ForeignKey(User.id, name="fk_assigned_user_id"))
-    assigned_user = db.relationship('User', lazy='joined', backref=db.backref('patients', lazy=True))
+    user = db.relationship('User', lazy='joined', backref=db.backref('patients', lazy=True))
 
     def __repr__(self):
         return "<Project (id='{}, name='{}', type='{}', id_assigned_user='{}')>".format(
