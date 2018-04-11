@@ -1,6 +1,5 @@
 from app.models import db
 from app.models.users import User
-from app.models.needs import Need
 
 
 class Speaker(db.Model):

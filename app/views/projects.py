@@ -10,22 +10,22 @@ from app.models.projects import Project
 
 @app.route('/projects')
 def get_projects():
-    q = Patient.query
+    q = Project.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Patient.first_name.ilike('%' + searched + '%'),
-            Patient.last_name.ilike('%' + searched + '%'),
-            Patient.email.ilike('%' + searched + '%'),
-            Patient.social_number.ilike('%' + searched + '%')
+            Project.first_name.ilike('%' + searched + '%'),
+            Project.last_name.ilike('%' + searched + '%'),
+            Project.email.ilike('%' + searched + '%'),
+            Project.social_number.ilike('%' + searched + '%')
         ))
-    patients = q.paginate(page, 10, False)
+    projects = q.paginate(page, 10, False)
     return render_template(
-        'patients.html',
-        current_route='get_patients',
+        'projects.html',
+        current_route='get_projects',
         title='List of admitted patients',
         subtitle='',
-        data=patients,
+        data=projects,
         searched=searched
     )

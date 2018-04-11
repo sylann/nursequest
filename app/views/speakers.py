@@ -10,22 +10,21 @@ from app.models.speakers import Speaker
 
 @app.route('/speakers')
 def get_speakers():
-    q = Patient.query
+    q = Speaker.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Patient.first_name.ilike('%' + searched + '%'),
-            Patient.last_name.ilike('%' + searched + '%'),
-            Patient.email.ilike('%' + searched + '%'),
-            Patient.social_number.ilike('%' + searched + '%')
+            Speaker.id.ilike('%' + searched + '%'),
+            Speaker.role.ilike('%' + searched + '%'),
+            Speaker.tokens.ilike('%' + searched + '%')
         ))
-    patients = q.paginate(page, 10, False)
+    speakers = q.paginate(page, 10, False)
     return render_template(
-        'patients.html',
-        current_route='get_patients',
-        title='List of admitted patients',
+        'speakers.html',
+        current_route='get_speakers',
+        title='Liste des intervenants disponibles',
         subtitle='',
-        data=patients,
+        data=speakers,
         searched=searched
     )
