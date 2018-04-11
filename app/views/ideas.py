@@ -10,22 +10,22 @@ from app.models.ideas import Ideas
 
 @app.route('/ideas')
 def get_ideas():
-    q = Patient.query
+    q = Ideas.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Patient.first_name.ilike('%' + searched + '%'),
-            Patient.last_name.ilike('%' + searched + '%'),
-            Patient.email.ilike('%' + searched + '%'),
-            Patient.social_number.ilike('%' + searched + '%')
+            Ideas.id.ilike('%' + searched + '%'),
+            Ideas.title.ilike('%' + searched + '%'),
+            Ideas.description.ilike('%' + searched + '%')
         ))
-    patients = q.paginate(page, 10, False)
+    ideas = q.paginate(page, 10, False)
+    print(ideas)
     return render_template(
-        'patients.html',
-        current_route='get_patients',
-        title='List of admitted patients',
+        'ideas.html',
+        current_route='get_ideas',
+        title='Liste des idées proposées',
         subtitle='',
-        data=patients,
+        data=ideas,
         searched=searched
     )
