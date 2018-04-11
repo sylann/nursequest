@@ -25,7 +25,7 @@ class User(db.Model):
         # TODO: Register a new nurse
 
     def verify_password(self, password):
-        return pwd_context.verify(password, self.password)
+        return self.password == password #Changer pour le hash, voir Bcrypt sur google !
 
     def update_password(self, new_password):
         self.password = pwd_context.encrypt(new_password)
