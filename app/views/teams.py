@@ -8,6 +8,7 @@ import datetime
 from app import app, db
 from app.models.teams import Team
 
+
 @app.route('/teams')
 def get_teams():
     return render_template(

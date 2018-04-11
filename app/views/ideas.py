@@ -16,17 +16,16 @@ def get_ideas():
     if searched:
         q = q.filter(or_(
             Ideas.id.ilike('%' + searched + '%'),
-            Ideas.id_student.ilike('%' + searched + '%'),
             Ideas.title.ilike('%' + searched + '%'),
-            Ideas.description.ilike('%' + searched + '%'),
-            Ideas.tags.ilike('%' + searched + '%')
+            Ideas.description.ilike('%' + searched + '%')
         ))
-    ideas = q.paginate(page, 15, False)
+    ideas = q.paginate(page, 10, False)
     print(ideas)
     return render_template(
         'ideas.html',
         current_route='get_ideas',
-        title='Liste des idées de projets proposées',
+        title='Liste des idées proposées',
+        subtitle='',
         data=ideas,
         searched=searched
     )
