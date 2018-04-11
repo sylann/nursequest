@@ -20,7 +20,11 @@
             <a href="{{ url_for('get_speakers') }}" class="navbar-item">Intervenants</a>
         </div>
         <div class="navbar-end">
-            <a href="{{ url_for('login') }}" class="navbar-item">Log in</a>
+            {% if session['uid'] %}
+                <a href="{{ url_for('logout') }}" class="navbar-item">Log out</a>
+            {% else %}
+                <a href="{{ url_for('login') }}" class="navbar-item">Log in</a>
+            {% endif %}
         </div>
     </div>
   </nav>

@@ -3,6 +3,9 @@
 {% block content %}
 
     {% include '_title.html' %}
+    {% if session['uid'] %}
+        <label class="has-text-success">Vous êtes déjà connecté !</label>
+    {% else %}
     <div class="container">
         <div class="level-left">
             <div class="card">
@@ -39,4 +42,5 @@
             </div>
         </div>
     </div>
+    {% endif %}
 {% endblock %}

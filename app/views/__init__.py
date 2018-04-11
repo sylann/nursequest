@@ -3,7 +3,7 @@ from os.path import join as path_join
 from flask import render_template, send_file
 
 from app import app
-from app.views import teams, ideas, projects, tags, users, speakers
+from app.views import teams, ideas, projects, tags, users, speakers, mainteachers
 
 
 @app.route('/')
