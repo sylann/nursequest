@@ -1,12 +1,14 @@
 from pprint import pprint
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, session
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
 from app.models.speakers import Speaker
+from app.models.needs import Need
+
 
 @app.route('/speaker/dashboard/<int:id>')
 def get_speaker_dashboard(id):
@@ -14,8 +16,13 @@ def get_speaker_dashboard(id):
     speaker = Speaker.query.get(id)
     print(speaker)
 
+    needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
+
     return render_template('speakers/speaker-dashboard.html',
-                           data={'speaker': speaker})
+                           data={'speaker': speaker,
+                                 'attribute_needs': needs},
+                           title='Dashboard',
+                           subtitle=session['name'])
 
 @app.route('/speakers')
 def get_speakers():

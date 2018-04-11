@@ -4,6 +4,24 @@
 
     {% include '_title.html' %}
     <div class="container">
-            salut gros pd
+
+            {{ data.speaker. }}
+
+
+            <table class="table is-striped">
+                    <thead>
+                    <th>Name</th>
+                    <th>Date</th>
+                    </thead>
+
+                    <tbody>
+                    {% for d in data.patient.diseases %}
+                        <tr>
+                            <th>{{ d.disease.name }}</th>
+                            <th>{{ d.disease.added }}</th>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
     </div>
 {% endblock %}
