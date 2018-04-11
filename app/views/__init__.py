@@ -1,9 +1,8 @@
 from os.path import join as path_join
 
 from flask import render_template, send_file
-from flask import Blueprint
 
-from app.models import availabilities, ideas, needs, projects, speakers, students, tags, teams, users
+from app.views import users
 from app import app
 
 
