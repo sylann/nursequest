@@ -1,5 +1,6 @@
 from app.models import db
-from app.views.users import User
+from app.models.users import User
+from app.models.needs import Need
 
 
 class Speaker(db.Model):
@@ -11,9 +12,6 @@ class Speaker(db.Model):
 
     id_assigned_user = db.Column(db.Integer, db.ForeignKey(User.id, name="fk_assigned_user_id"))
     user = db.relationship('User', lazy='joined')
-
-    availabilities = db.relationship('Availabilities')
-    needs = db.relationship('Needs')
 
     def __repr__(self):
         return "<Speaker (id='{}, tokens='{}', role='{}', id_assigned_user='{}')>".format(

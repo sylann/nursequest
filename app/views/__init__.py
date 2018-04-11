@@ -2,12 +2,13 @@ from os.path import join as path_join
 
 from flask import render_template, send_file
 
-from app.views import users
 from app import app
+from app.views import *
 
 
 @app.route('/')
 def index():
+    print("TTTTTTTTTTTTTTTTTTTTZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ")
     return render_template(
         'home.html',
         title='Bienvenue sur WETA !',

@@ -24,7 +24,6 @@ class Need(db.Model):
     id_assigned_speaker = db.Column(db.Integer, db.ForeignKey(Speaker.id, name="fk_assigned_speaker_id"))
     assigned_speaker = db.relationship('Speaker', lazy='joined')
 
-
     def __repr__(self):
         return "<Need (id='{}, title='{}', description='{}', estimated_tokens='{}', status='{}, " \
                "speaker_conclusion='{}', team_conclusion='{}', used_tokens='{}', creation_date='{}, " \
@@ -32,4 +31,3 @@ class Need(db.Model):
                 self.id, self.title, self.description, self.estimated_tokens, self.status, self.speaker_conclusion,
                 self.team_conclusion, self.used_tokens, self.creation_date, self.validation_date, self.close_date,
                 self.id_assigned_team, self.id_assigned_speaker)
-

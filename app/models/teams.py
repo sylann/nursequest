@@ -14,8 +14,6 @@ class Team(db.Model):
     id_assigned_project = db.Column(db.Integer, db.ForeignKey(Project.id, name="fk_assigned_project_id"))
     assigned_project = db.relationship('Project', lazy='joined')
 
-    students = db.relationship('Students')
-
     def __repr__(self):
         return "<Team (id='{}, name='{}', logo='{}', tokens='{}', description='{}', id_assigned_project='{}')>".format(
             self.id, self.name, self.logo, self.tokens, self.description, self.id_assigned_project)

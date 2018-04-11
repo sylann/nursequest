@@ -1,17 +1,20 @@
-from flask import render_template, request
+from flask import render_template, request, redirect, url_for
 from sqlalchemy import or_
 
 from app import app
+from app.views.students import get_student_dashboard
 from app.models.users import User
 
 
 @app.route('/login')
 def login():
-    return render_template('login.html')
+    return redirect(url_for('get_student_dashboard', id=2))
+
 
 @app.route('/forgotten-password')
 def forgottenpwd():
     return render_template('forgotten-password.html')
+
 
 @app.route('/users')
 def get_users():
