@@ -1,0 +1,60 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    {% include '_title.html' %}
+    <section class="section" xmlns="http://www.w3.org/1999/html">
+        <div class="container">
+            {% include '_searchbar.html' %}
+            <div class="control">
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        {% if session['uid'] %}
+                            <a class="button is-dark is-focused" href="{{ url_for('get_create_idea') }}">Ajouter une nouvelle idée</a>
+                        {% else %}
+                            <a class="button is-dark is-focused"  href="{{ url_for('login') }}">Connectez-vous pour ajouter une nouvelle idée</a>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+            <br>
+            {% if data.items | count > 0 %}
+                {% for idea in data.items %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <a href="{{ url_for('get_ideas', id=idea.id) }}"><strong>{{ idea.title }}</strong></a>
+                                        <small >- Initiateur : <a  href="mailto:{{ idea.student.user.email }} ?subject=Workshop EPSI - Idée {{ idea.title }}" >{{ idea.student.user.full_name }}</a></small>
+                                        <br>
+                                        <br>
+                                        {{ idea.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="media-right" align="center">
+                                {% if idea.interested > 1 %}
+                                   <strong><p> Intéressés : {{ idea.interested }}</p></strong>
+                                {% else %}
+                                    <strong><p>Intéressé : {{ idea.interested }}</p></strong></p></strong>
+                                {% endif %}
+                                <br>
+                                {% if session['uid'] %}
+                                   <a href="{{ url_for('add_interest_idea', id=idea.id) }}">
+                                        <img src="/static/img/interest.png" alt="Je suis intéressé par cette idée !" width="32" height="32">
+                                   </a>
+                                {% else %}
+                                    <a class="button is-light is-focused"  href="{{ url_for('login') }}">Connectez-vous</a>
+                                {% endif %}
+
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            {% else %}
+                <p>Aucune idée n'a encore été proposée !</p>
+            {% endif %}
+        </div>
+    </section>
+{% endblock %}

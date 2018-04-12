@@ -1,0 +1,46 @@
+{% extends '_base.html' %}
+
+{% block content %}
+
+    {% include '_title.html' %}
+
+    <section class="section">
+        <div class="container">
+
+            {% if data %}
+                {% for speaker in data %}
+
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ speaker.user.full_name }}</strong>
+                                        <small>{{ speaker.user.email }}</small>
+                                        {#                                        --#}
+                                        {#                                        <small>{{ speaker.estimated_tokens }} estimated tokens</small>#}
+                                        <br>
+                                        {{ speaker.tags }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="media-right">
+                                <div class="control">
+                                    <div class="field is-grouped is-grouped-right">
+                                        <div class="control">
+                                            <a class="button is-dark is-focused"
+                                               href="{{ url_for('get_create_need', id=speaker.id) }}">Choisir</a>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+            {% else %}
+                <p> Aucun intervenant trouvé !</p>
+            {% endif %}
+
+        </div>
+    </section>
+{% endblock %}

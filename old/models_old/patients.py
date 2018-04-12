@@ -1,5 +1,5 @@
 from app.models import db
-from app.models.users import User
+from app.models.models_old.users import User
 
 
 class CaughtDisease(db.Model):

@@ -5,3 +5,4 @@ passlib
 flask
 flask-sqlalchemy
 faker
+flask-bcrypt

@@ -1,18 +1,18 @@
 from os.path import join as path_join
 
-from flask import send_file
+from flask import render_template, send_file
 
-from app.views.users import *
-from app.views.patients import *
-from app.views.diseases import *
+from app import app
+from app.views import teams, ideas, projects, tags, users, speakers, mainteachers, students
+from app import errors
 
 
 @app.route('/')
 def index():
     return render_template(
-        'home.html',
-        title='Welcome to Nurse Quest!',
-        subtitle='Take care of your patients'
+        'login.html',
+        title='Bienvenue sur WETA !',
+        subtitle='Workshop Enhanced Token Administration'
     )
 
 

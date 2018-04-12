@@ -1,0 +1,88 @@
+{% extends '_base.html' %}
+
+{% block content %}
+    {% include '_title.html' %}
+    <div class="container">
+        <div class="columns">
+
+            <div class="column">
+                <h3 class="title is-3">Informations concernant la demande</h3>
+                <div class="field">
+                    <label class="label">Sujet</label>
+                    <div class="control">
+                        <input class="input" type="text" value="{{ data.need.title }}" readonly>
+                    </div>
+                    <br>
+                    <label class="label">Description</label>
+                    <div class="control">
+                        <input class="input" type="text" value="{{ data.need.description }}" readonly>
+                    </div>
+                    <br>
+                    <label class="label">Jetons estimés</label>
+                    <div class="control">
+                        <input class="input" type="text" value="{{ data.need.estimated_tokens }}" readonly>
+                    </div>
+                </div>
+            </div>
+            <div class="column">
+                {% if data.need.status=='Terminé' or data.need.status=='Validé' %}
+                    <h3 class="title is-3">Conclusions</h3>
+                    <div class="field">
+                        <label class="label">Commentaire de l'intervenant</label>
+                        <div class="control">
+                            <input class="input" type="text" value="{{ data.need.speaker_conclusion }}" readonly>
+                        </div>
+                        <br>
+                        <label class="label">Jetons utilisés par l'équipe</label>
+                        <div class="control">
+                            <input class="input" type="text" value="{{ data.need.used_tokens }}" readonly>
+                        </div>
+                        <br>
+                        {% if data.need.status=='Terminé' %}
+                            <label class="label">Commentaire de l'équipe</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ data.need.team_conclusion }}" readonly>
+                            </div>
+                            <br>
+                        {% else %}
+                            <label class="label">La demande est en cours de validation par l'équipe {{ data.need.team.name }}</label>
+                        {% endif %}
+                    </div>
+                {% else %}
+                    <button class="button is-link" onclick="open_modal()">Traiter la demande</button>
+                {% endif %}
+            </div>
+        </div>
+        <div class="modal" id="delete-modal">
+            <div class="modal-background" onclick="close_modal()"></div>
+            <div class="modal-card">
+                <header class="modal-card-head">
+                    <p class="modal-card-title">Confirmation</p>
+                    <button class="delete" aria-label="close" onclick="close_modal()"></button>
+                </header>
+
+                <form method="post" action="{{ url_for('need_validate', id=data.need.id) }}"
+                      enctype="multipart/form-data">
+
+                    <section class="modal-card-body">
+                        <div class="control">
+                            <input class="input" type="number" placeholder="Jetons utilisés" name="token" required>
+                        </div>
+                        <br>
+                        <div class="control">
+                            <input class="input" type="text" placeholder="Commentaire" name="appraisal" required>
+                        </div>
+                    </section>
+                    <footer class="modal-card-foot">
+                        <button class="button" onclick="close_modal()">Cancel</button>
+                        <button class="button is-success is-grouped-right" onclick="close_modal()">
+                            Valider
+                        </button>
+                    </footer>
+
+                </form>
+
+            </div>
+        </div>
+    </div>
+{% endblock %}
