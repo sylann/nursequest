@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="column">
-                {% if data.need.status=='Fermé' %}
+                {% if data.need.status=='Fermé' or data.need.status=='Validé' %}
                     <h3 class="title is-3">Conclusions</h3>
                     <div class="field">
                         <label class="label">Commentaire de l'intervenant</label>
@@ -33,15 +33,20 @@
                             <input class="input" type="text" value="{{ data.need.speaker_conclusion }}" readonly>
                         </div>
                         <br>
-                        <label class="label">Commentaire de l'équipe</label>
-                        <div class="control">
-                            <input class="input" type="text" value="{{ data.need.team_conclusion }}" readonly>
-                        </div>
-                        <br>
                         <label class="label">Token utilisé au final</label>
                         <div class="control">
                             <input class="input" type="text" value="{{ data.need.used_tokens }}" readonly>
                         </div>
+                        <br>
+                        {% if data.need.status=='Fermé' %}
+                            <label class="label">Commentaire de l'équipe</label>
+                            <div class="control">
+                                <input class="input" type="text" value="{{ data.need.team_conclusion }}" readonly>
+                            </div>
+                            <br>
+                        {% else %}
+                            <label class="label">La demande est en cours de validation par l'équipe {{ data.need.team.name }}</label>
+                        {% endif %}
                     </div>
                 {% else %}
                     <button class="button is-link" onclick="open_modal()">Traiter la demande</button>
@@ -56,7 +61,8 @@
                     <button class="delete" aria-label="close" onclick="close_modal()"></button>
                 </header>
 
-                <form method="post" action="{{ url_for('need_validate', id=data.need.id) }}" enctype="multipart/form-data">
+                <form method="post" action="{{ url_for('need_validate', id=data.need.id) }}"
+                      enctype="multipart/form-data">
 
                     <section class="modal-card-body">
                         <div class="control">
@@ -68,12 +74,9 @@
                     </section>
                     <footer class="modal-card-foot">
                         <button class="button" onclick="close_modal()">Cancel</button>
-                        <a href="{{ url_for('delete_patient', id=patient.id) }}"
-                           id="link_btn_validate">
-                            <button class="button is-success is-grouped-right" onclick="close_modal()">
-                                Valider
-                            </button>
-                        </a>
+                        <button class="button is-success is-grouped-right" onclick="close_modal()">
+                            Valider
+                        </button>
                     </footer>
 
                 </form>
