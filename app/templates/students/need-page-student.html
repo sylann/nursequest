@@ -1,34 +1,99 @@
 {% extends '_base.html' %}
 
 {% block content %}
-
     {% include '_title.html' %}
-    <div class="container">
-        <p>{{ data.need.team.project.title }}</p>
-        <p>{{ data.need.team.project.description }}</p>
-        <br><br>
 
-        <p>Estimated tokens : </p>
-        <p>{{ data.need.estimated_tokens }}</p>
-        <br>
+    <section class="section">
+        <div class="container">
 
-        <p>Status : </p>
-        <p>{{ data.need.status }}</p>
-        <br>
+            <form method="post" action="{{ url_for('close_need', id=data.need.id) }}"
+                  enctype="multipart/form-data">
 
-        <p>speaker_conclusion : </p>
-        <p>{{ data.need.speaker_conclusion }}</p>
-        <p>used_tokens : </p>
-        <p>{{ data.need.used_tokens }}</p>
+                <div class="columns">
 
+                    <div class="column">
 
-        <br>
+                        <h3 class="title is-3">Demande</h3>
 
+                        <div class="field">
+                            <div class="control">
+                                <input class="input" type="hidden" name="speaker_id" value="{{ data.need.speaker.id }}">
+                            </div>
+                        </div>
 
-        <p>team_conclusion : </p>
-        <p>{{ data.need.team_conclusion }}</p>
-        <br>
+                        <div class="field">
+                            <label class="label">Intervenant</label>
+                            <div class="control">
+                                <input class="input" type="text" name="speaker_full_name"
+                                       value="{{ data.need.speaker.user.full_name }}"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Titre</label>
+                            <div class="control">
+                                <input class="input" type="text" name="title" value="{{ data.need.title }}"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Description</label>
+                            <div class="control">
+                                <input class="input" type="text" name="description" value="{{ data.need.description }}"
+                                       readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Jetons estimés</label>
+                            <div class="control">
+                                <input class="input" type="number" name="estimated_tokens"
+                                       value="{{ data.need.estimated_tokens }}"
+                                       readonly>
+                            </div>
+                        </div>
+                    </div>
 
-
-   </div>
+                    <div class="column">
+                        <h3 class="title is-3">Informations</h3>
+                        <div class="field">
+                            <label class="label">Statut</label>
+                            <div class="control">
+                                <input class="input" type="text" name="status" value="{{ data.need.status }}" readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Bilan intervenant</label>
+                            <div class="control">
+                                <input class="input" type="text" name="speaker_conclusion"
+                                        {% if data.need.speaker_conclusion != None %}
+                                       value="{{ data.need.speaker_conclusion }}" {% endif %}>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Bilan équipe</label>
+                            <div class="control">
+                                <input class="input" type="text" name="team_conclusion"
+                                        {% if data.need.team_conclusion != None %}
+                                       value="{{ data.need.team_conclusion }}" {% endif %}
+                                        {% if data.need.status == 'Validé' %}
+                                       required placeholder="Saisir la conclusion de l'équipe suite à l'intervention."
+                                        {% else %}
+                                       readonly
+                                        {% endif %}>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                {% if data.need.status == 'Validé' %}
+                <div class="field is-grouped is-grouped-right">
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <button class="button is-link">Terminer la demande</button>
+                        </div>
+                    </div>
+                </div>
+                {% endif %}
+            </form>
+        </div>
+    </section>
 {% endblock %}

@@ -7,6 +7,7 @@ import datetime
 
 from app import app, db
 from app.models.speakers import Speaker
+from app.models.needs import Need
 
 @app.route('/mainteacher/dashboard/<int:id>')
 def get_mainteacher_dashboard(id):

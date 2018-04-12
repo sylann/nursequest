@@ -3,7 +3,36 @@
 {% block content %}
 
     {% include '_title.html' %}
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <div class="container">
-            salut gros pd
+
+            <table class="table is-striped is-hoverable">
+                    <thead>
+                    <th>Projet concerné</th>
+                    <th>Titre</th>
+                    <th>Prix estimé en tokens</th>
+                    <th>Status</th>
+                    <th>Equipe</th>
+                    </thead>
+
+                    <tbody>
+                    {% for need in data.attribute_needs %}
+                        <tr class='clickable-row' data-href="{{ url_for('get_need_page', id=need.id) }}">
+                            <td>{{ need.team.project.title }}</td>
+                            <td>{{ need.title }}</td>
+                            <td>{{ need.estimated_tokens }}</td>
+                            <td>{{ need.status }}</td>
+                            <td>{{ need.team.name }}</td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+            </table>
     </div>
+<script>
+ jQuery(document).ready(function($) {
+    $(".clickable-row").click(function() {
+        window.location = $(this).data("href");
+    });
+});
+ </script>
 {% endblock %}

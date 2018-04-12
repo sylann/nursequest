@@ -10,17 +10,48 @@ from app.models.speakers import Speaker
 
 @app.route('/student/need/<int:id>')
 def get_need_page_student(id):
-    need = Need.query.get(id)
-    #TODO : 404
+    student = Student.query.filter_by(id_user=session['uid']).first()
+    try:
+        need = Need.query.get(id)
+    except:
+        abort(500)
     return render_template('students/need-page-student.html',
-                           data={'need': need},
+                           data={'need': need,
+                                 'student': student},
                            title='Résumé du besoin')
 
+@app.route('/student/need/<int:id>/close', methods=['POST'])
+def close_need(id):
+    """
+    Quand on clique sur 'terminer' un besoin validé par un intervenant
+    :param id: id du besoin
+    :return: dashboard étudiant
+    """
 
-@app.route('/student/need/new')
+    try:
+        need = Need.query.get(id)
+    except:
+        abort(500)
+
+    need.status = 'Terminé'
+    if need.team.tokens < 0:
+        need.team.tokens = 0
+    else:
+        need.team.tokens -= need.used_tokens
+
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_student_dashboard'))
+
+
+@app.route('/student/need/new/select-speaker')
 def get_select_speaker():
     speakers = Speaker.query.filter_by(role=False).all()
     student = Student.query.filter_by(id_user=session['uid']).first()
+
 
     return render_template(
         'students/speaker-choice.html',
@@ -51,9 +82,6 @@ def create_need():
     speaker_id = request.form.get('speaker_id')
     estimated_tokens = int(request.form.get('estimated_tokens'))
 
-    print('CCCCCCCCCCCCCCCCCCCC')
-    print(title, description, speaker_id, estimated_tokens)
-
     if estimated_tokens < 0:
         estimated_tokens = 0
 
@@ -73,7 +101,6 @@ def create_need():
         abort(500)
 
     return redirect(url_for('get_student_dashboard'))
-
 
 
 
