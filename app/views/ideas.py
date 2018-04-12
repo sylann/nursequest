@@ -42,7 +42,6 @@ def get_create_idea():
     Renvoie la vue pour créer une nouvelle Idée
     :return:
     """
-    student = Student.query.filter_by(id_user=session['uid']).first()
     user = User.query.filter_by(id=session['uid']).first()
 
     return render_template(
@@ -58,13 +57,9 @@ def create_idea():
     Crée l'idée dans la database
     :return:
     """
-    student = Student.query.filter_by(id_user=session['uid']).first()
     user = User.query.filter_by(id=session['uid']).first()
     title = request.form.get('title')
     description = request.form.get('description')
-
-    print(session)
-    print(user)
 
     idea = Ideas(
         title=title,
