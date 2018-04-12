@@ -1,9 +1,8 @@
 from pprint import pprint
 
 from flask import render_template, request, redirect, url_for, session, abort
+from flask import render_template, request
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
 from app import app, db
 from app.models.projects import Project
@@ -11,7 +10,7 @@ from app.models.ideas import Ideas
 from app.models.users import User
 
 
-@app.route('/projets')
+@app.route('/projects')
 def get_projects():
     """
     Pagine et renvoie la liste des projets
@@ -34,6 +33,7 @@ def get_projects():
         data=projects,
         searched=searched
     )
+
 
 
 @app.route('/projects/new/')

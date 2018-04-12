@@ -1,4 +1,5 @@
 from flask import render_template, request, redirect, url_for, session, abort
+from flask import render_template, request, redirect, url_for, session, abort
 from pprint import pprint
 
 from flask import render_template, request, redirect, url_for, abort, session
@@ -106,21 +107,6 @@ def get_speaker_dashboard():
     """
     q = Need.query
     speaker = Speaker.query.get(session['uid'])
-@app.route('/speaker/dashboard/<int:id>')
-def get_speaker_dashboard(id):
-    speaker = Speaker.query.get(id)
-
-    needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
-    print(needs)
-    return render_template('speakers/speaker-dashboard.html',
-                           data={'speaker': speaker},
-                           title='Bienvenue ' + speaker.user.full_name,
-                           subtitle='Intervenant')
-
-
-@app.route('/speakers')
-def get_speakers():
-    q = Speaker.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
