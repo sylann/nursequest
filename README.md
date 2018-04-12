@@ -1,5 +1,5 @@
 # WETA - Workshop Enhanced Token Administration
-*Initial Project forked thanks to https://github.com/SylannBin , a classmate.*
+*Initial Project forked thanks to https://github.com/SylannBin, a classmate.*
 
 ## Team Members :
 
@@ -11,15 +11,6 @@
 ## Objectives :
 
 Create a token administration platform used by several types of users for EPSI Workshops.
-
-### Attended features : 
-
-- TBA
-- TBA
-- TBA
-- TBA
-- TBA
-
 
 ## Techs :
 
