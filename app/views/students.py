@@ -20,11 +20,38 @@ def get_need_page_student(id):
                                  'student': student},
                            title='Résumé du besoin')
 
+@app.route('/student/need/<int:id>/close', methods=['POST'])
+def close_need(id):
+    """
+    Quand on clique sur 'terminer' un besoin validé par un intervenant
+    :param id: id du besoin
+    :return: dashboard étudiant
+    """
+
+    try:
+        need = Need.query.get(id)
+    except:
+        abort(500)
+
+    need.status = 'Terminé'
+    if need.team.tokens < 0:
+        need.team.tokens = 0
+    else:
+        need.team.tokens -= need.used_tokens
+
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_student_dashboard'))
+
 
 @app.route('/student/need/new/select-speaker')
 def get_select_speaker():
     speakers = Speaker.query.filter_by(role=False).all()
     student = Student.query.filter_by(id_user=session['uid']).first()
+
 
     return render_template(
         'students/speaker-choice.html',
