@@ -10,16 +10,18 @@ from app.models.speakers import Speaker
 
 @app.route('/student/need/<int:id>')
 def get_need_page_student(id):
+    student = Student.query.filter_by(id_user=session['uid']).first()
     try:
         need = Need.query.get(id)
     except:
         abort(500)
     return render_template('students/need-page-student.html',
-                           data={'need': need},
+                           data={'need': need,
+                                 'student': student},
                            title='Résumé du besoin')
 
 
-@app.route('/student/need/new')
+@app.route('/student/need/new/select-speaker')
 def get_select_speaker():
     speakers = Speaker.query.filter_by(role=False).all()
     student = Student.query.filter_by(id_user=session['uid']).first()
