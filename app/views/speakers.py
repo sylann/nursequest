@@ -10,12 +10,12 @@ from app.models.speakers import Speaker
 
 @app.route('/speaker/dashboard/<int:id>')
 def get_speaker_dashboard(id):
-    print('cc je passe par speaker')
     speaker = Speaker.query.get(id)
-    print(speaker)
 
     return render_template('speakers/speaker-dashboard.html',
-                           data={'speaker': speaker})
+                           data={'speaker': speaker},
+                           title='Bienvenue ' + speaker.user.full_name,
+                           subtitle='Intervenant')
 
 @app.route('/speakers')
 def get_speakers():
