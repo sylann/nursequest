@@ -1,6 +1,6 @@
 from pprint import pprint
 
-from flask import render_template, request, redirect, url_for, session, abort
+from flask import render_template, request, redirect, url_for
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 import datetime
@@ -64,18 +64,14 @@ def need_validate(id):
 
 @app.route('/speaker/dashboard/<int:id>')
 def get_speaker_dashboard(id):
-    print('cc je passe par speaker')
     speaker = Speaker.query.get(id)
-    print(speaker)
 
     needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
     print(needs)
     return render_template('speakers/speaker-dashboard.html',
-                           data={'speaker': speaker,
-                                 'attribute_needs': needs},
-                           title='Dashboard',
-                           subtitle=session['name'])
-
+                           data={'speaker': speaker},
+                           title='Bienvenue ' + speaker.user.full_name,
+                           subtitle='Intervenant')
 
 @app.route('/speakers')
 def get_speakers():
