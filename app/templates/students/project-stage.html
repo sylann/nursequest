@@ -4,10 +4,8 @@
 
     {% include '_title.html' %}
 
-
     <section class="section">
         <div class="container">
-
             <div class="columns">
                 <div class="column">
                     {% include '_searchbar.html' %}
@@ -29,16 +27,10 @@
         </div>
     </section>
 
-
-
-
     <section class="section">
         <div class="container">
-
-
             {% if data.items | count > 0 %}
                 {% for need in data.items %}
-
                     <div class="box">
                         <article class="media">
                             <div class="media-content">
@@ -52,6 +44,10 @@
                                         {{ need.description }}
                                     </p>
                                 </div>
+                            </div>
+                            <div class="media-right">
+{#                                TODO : Create Link#}
+                                Voir plus
                             </div>
                         </article>
                     </div>
