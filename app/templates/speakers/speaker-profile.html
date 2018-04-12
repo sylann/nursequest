@@ -1,10 +1,74 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
-<body>
+{% extends '_base.html' %}
 
-</body>
-</html>
+{% block content %}
+    {% include '_title.html' %}
+
+    <section class="section">
+        <div class="container">
+            <div class="columns">
+                <div class="column">
+                    <h1 class="title">{{ data.speaker.tokens }}</h1>
+                    <h2 class="subtitle">Jetons totaux</h2>
+                </div>
+                <div class="column">
+                    <h1 class="title">{{ data.needs }}</h1>
+                    <h2 class="subtitle">Nombre de demandes résolues</h2>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <form method="post" action="{{ url_for('update_profile', id=data.speaker.id) }}"
+                  enctype="multipart/form-data">
+
+                <div class="columns">
+
+                    <div class="column">
+
+                        <h3 class="title is-3">Informations</h3>
+
+                        <div class="field">
+                            <label class="label">Nom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="speaker_last_name"
+                                       value="{{ data.speaker.user.last_name }}" readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Prénom</label>
+                            <div class="control">
+                                <input class="input" type="text" name="speaker_first_name"
+                                       value="{{ data.speaker.user.first_name }}" readonly>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Email</label>
+                            <div class="control">
+                                <input class="input" type="text" name="description"
+                                       value="{{ data.speaker.user.email }}" readonly>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="column">
+                        <h3 class="title is-3">Complétez</h3>
+                        <div class="field">
+                            <label class="label">Tags</label>
+                            <div class="control">
+                                <input class="input" type="text" name="tags" value="{{ data.speaker.tags }}">
+                            </div>
+                        </div>
+
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link">Submit</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </section>
+{% endblock %}

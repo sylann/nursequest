@@ -34,11 +34,28 @@ def get_need_validation(id):
 def get_profile(id):
     speaker = Speaker.query.filter_by(id=id).first()
 
-    return render_template('speakers/speaker-profile.html',
-                           data={'speaker': speaker},
-                           title='Profil',
-                           subtitle=session['name'], )
+    speaker_needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
 
+    needs_count = len([need for need in speaker_needs if need.status == 'Terminé' or need.status == 'Validé'])
+
+    return render_template('speakers/speaker-profile.html',
+                           data={'speaker': speaker,
+                                 'needs': needs_count},
+                           title='Profil',
+                           subtitle=session['name'])
+
+@app.route('/update_profile/<int:id>', methods=['POST'])
+def update_profile(id):
+    tags = request.form.get('tags')
+    speaker = Speaker.query.filter_by(id=id).first()
+
+    speaker.tags = tags
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_profile', id=speaker.id))
 
 @app.route('/validate_need_modal/<int:id>', methods=['POST'])
 def need_validate(id):
@@ -62,38 +79,24 @@ def need_validate(id):
     return redirect(url_for('get_need_validation', id=need.id))
 
 
-@app.route('/speaker/dashboard/<int:id>')
-def get_speaker_dashboard(id):
-    print('cc je passe par speaker')
-    speaker = Speaker.query.get(id)
-    print(speaker)
-
-    needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
-    print(needs)
-    return render_template('speakers/speaker-dashboard.html',
-                           data={'speaker': speaker,
-                                 'attribute_needs': needs},
-                           title='Dashboard',
-                           subtitle=session['name'])
-
-
-@app.route('/speakers')
-def get_speakers():
-    q = Speaker.query
+@app.route('/speaker/dashboard')
+def get_speaker_dashboard():
+    q = Need.query
+    speaker = Speaker.query.get(session['uid'])
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Speaker.id.ilike('%' + searched + '%'),
-            Speaker.role.ilike('%' + searched + '%'),
-            Speaker.tokens.ilike('%' + searched + '%')
+            Need.title.ilike('%' + searched + '%'),
+            Need.description.ilike('%' + searched + '%')
         ))
-    speakers = q.paginate(page, 10, False)
+    needs = q.paginate(page, 10, False)
     return render_template(
-        'speakers.html',
-        current_route='get_speakers',
-        title='Liste des intervenants disponibles',
+        'speakers/speaker-dashboard.html',
+        current_route='get_speaker_dashboard',
+        title='Dashboard',
         subtitle='',
-        data=speakers,
+        data=needs,
+        speaker=speaker,
         searched=searched
     )
