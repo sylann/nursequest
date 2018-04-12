@@ -1,9 +1,4 @@
-from pprint import pprint
-
 from flask import render_template, request, redirect, url_for, session
-from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
 from app import app, db
 from app.models.students import Student
@@ -21,6 +16,10 @@ def get_teams():
 
 @app.route('/team/new')
 def get_create_team():
+    """
+    Renvoie la page de création d'équipe
+    :return:
+    """
     students = Student.query.filter(Student.id_assigned_team == None, Student.id_user != session['uid']).all()
     projects = Project.query.all()
 
@@ -34,8 +33,11 @@ def get_create_team():
 
 @app.route('/team/created', methods=['POST'])
 def create_team():
+    """
+    Crée une équipe en DB
+    :return:
+    """
     students = request.form.get('users')
     project = request.form.get('project')
 
-    print(type(students), project)
     return redirect(url_for('get_login'))

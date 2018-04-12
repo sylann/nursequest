@@ -1,15 +1,16 @@
-from pprint import pprint
-
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
 from app import app, db
 from app.models.projects import Project
 
+
 @app.route('/projects')
 def get_projects():
+    """
+    Pagine et renvoie la liste des projets
+    :return:
+    """
     q = Project.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')

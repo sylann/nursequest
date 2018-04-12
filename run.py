@@ -1,5 +1,6 @@
 #!/usr/bin/env python3
 import os
+from app.errors import *
 from app.views import *
 
 app.secret_key = os.urandom(12)

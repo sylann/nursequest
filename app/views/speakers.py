@@ -1,9 +1,5 @@
-from pprint import pprint
-
 from flask import render_template, request, redirect, url_for, session, abort
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
 from app import app, db
 from app.models.speakers import Speaker
@@ -12,6 +8,10 @@ from app.models.needs import Need
 
 @app.route('/need_page/<int:id>')
 def get_need_page(id):
+    """
+    Renvoie la page d'un besoin selon son ID
+    :return:
+    """
     need = Need.query.filter_by(id=id).first()
 
     return render_template('speakers/need-page-speaker.html',
@@ -22,6 +22,10 @@ def get_need_page(id):
 
 @app.route('/need_validation/<int:id>')
 def get_need_validation(id):
+    """
+    Renvoie la page de validation d'un need par l'intervenant
+    :return:
+    """
     need = Need.query.filter_by(id=id).first()
 
     return render_template('speakers/need-page-speaker.html',
@@ -32,6 +36,10 @@ def get_need_validation(id):
 
 @app.route('/profile/<int:id>')
 def get_profile(id):
+    """
+    Renvoie la page de profil de l'intervenant / responsable
+    :return:
+    """
     speaker = Speaker.query.filter_by(id=id).first()
 
     speaker_needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
@@ -46,6 +54,10 @@ def get_profile(id):
 
 @app.route('/update_profile/<int:id>', methods=['POST'])
 def update_profile(id):
+    """
+    Permet d'update son profil intervenant / responsable
+    :return:
+    """
     tags = request.form.get('tags')
     speaker = Speaker.query.filter_by(id=id).first()
 
@@ -59,6 +71,10 @@ def update_profile(id):
 
 @app.route('/validate_need_modal/<int:id>', methods=['POST'])
 def need_validate(id):
+    """
+    Valide un need en db
+    :return:
+    """
     token = int(request.form.get('token'))
     appraisal = request.form.get('appraisal')
 
@@ -81,6 +97,10 @@ def need_validate(id):
 
 @app.route('/speaker/dashboard')
 def get_speaker_dashboard():
+    """
+    Pagine et renvoie le dashboard du speaker
+    :return:
+    """
     q = Need.query
     speaker = Speaker.query.get(session['uid'])
     page = request.args.get('page', default=1, type=int)

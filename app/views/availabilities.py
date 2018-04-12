@@ -9,6 +9,10 @@ from app.models.availabilities import Availabilities
 
 @app.route('/availabilities')
 def get_availabilities():
+    """
+    Pagine et renvoie toutes les availabilities
+    :return:
+    """
     q = Availabilities.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
