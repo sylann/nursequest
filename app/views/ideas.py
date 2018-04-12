@@ -1,9 +1,5 @@
-from pprint import pprint
-
 from flask import render_template, request, redirect, url_for, session, abort
 from sqlalchemy import or_
-from sqlalchemy.exc import IntegrityError
-import datetime
 
 from app import app, db
 from app.models.ideas import Ideas
@@ -17,7 +13,6 @@ def get_ideas():
     :return:
     """
     q = Ideas.query
-    print(q)
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:

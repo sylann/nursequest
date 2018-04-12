@@ -6,7 +6,7 @@ from sqlalchemy.exc import IntegrityError
 import datetime
 
 from app import app, db
-from app.models.speakers import Speaker
+from app.models.users import User
 
 
 @app.route('/mainteacher/dashboard/<int:id>')
@@ -15,11 +15,11 @@ def get_mainteacher_dashboard(id):
     Renvoie le dashboard d'un responsable pédago
     :return:
     """
-    mainteacher = Speaker.query.get(id)
+    mainteacher = User.query.get(id)
 
     return render_template(
         'mainteachers/main-teacher-dashboard.html',
         data={'mainteacher': mainteacher},
-        title='Bienvenue ' + mainteacher.user.full_name,
+        title='Bienvenue ' + mainteacher.full_name,
         subtitle='Responsable Pédagogique')
 

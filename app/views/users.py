@@ -49,6 +49,7 @@ def login():
             check_speaker = Speaker.query.filter_by(id_assigned_user=user.id).first()
             session['uid'] = user.id
             session['name'] = user.first_name
+            session['full_name'] = user.first_name + " " + user.last_name
 
             #Si on récupère bien un objet speaker, on vérifie si c'est un intervenant (role null)
             if check_speaker and not check_speaker.role:

@@ -7,6 +7,7 @@ from sqlalchemy import or_
 
 from app import app, db
 from app.models.speakers import Speaker
+from app.models.users import User
 from app.models.needs import Need
 
 
@@ -44,17 +45,18 @@ def get_profile(id):
     Renvoie la page de profil de l'intervenant / responsable
     :return:
     """
-    speaker = Speaker.query.filter_by(id=id).first()
+    user = User.query.filter_by(id=id).first()
 
-    speaker_needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
+    user_needs = Need.query.filter_by(id_assigned_speaker=user.id).all()
 
-    needs_count = len([need for need in speaker_needs if need.status == 'Terminé' or need.status == 'Validé'])
+    needs_count = len([need for need in user_needs if need.status == 'Terminé' or need.status == 'Validé'])
 
     return render_template('speakers/speaker-profile.html',
-                           data={'speaker': speaker,
+                           data={'user': user,
                                  'needs': needs_count},
                            title='Profil',
-                           subtitle=session['name'])
+                           subtitle=session['full_name'])
+
 
 @app.route('/update_profile/<int:id>', methods=['POST'])
 def update_profile(id):
@@ -63,15 +65,16 @@ def update_profile(id):
     :return:
     """
     tags = request.form.get('tags')
-    speaker = Speaker.query.filter_by(id=id).first()
+    user = User.query.filter_by(id=id).first()
 
-    speaker.tags = tags
+    user.tags = tags
     try:
         db.session.commit()
     except:
         abort(500)
 
-    return redirect(url_for('get_profile', id=speaker.id))
+    return redirect(url_for('get_profile', id=user.id))
+
 
 @app.route('/validate_need_modal/<int:id>', methods=['POST'])
 def need_validate(id):
