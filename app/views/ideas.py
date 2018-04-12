@@ -22,7 +22,6 @@ def get_ideas():
             Ideas.description.ilike('%' + searched + '%')
         ))
     ideas = q.paginate(page, 10, False)
-    print(ideas)
     return render_template(
         'ideas.html',
         current_route='get_ideas',
@@ -37,10 +36,11 @@ def get_ideas():
 def get_create_idea():
     student = Student.query.filter_by(id_user=session['uid']).first()
 
-    return render_template('create_idea.html',
-                           title='Proposez une nouvelle idée de projet',
-                           data={'student': student}
-                           )
+    return render_template(
+        'create_idea.html',
+        title='Proposez une nouvelle idée de projet',
+        data={'student': student}
+        )
 
 
 @app.route('/ideas/create_idea', methods=['POST'])
@@ -49,16 +49,27 @@ def create_idea():
     title = request.form.get('title')
     description = request.form.get('description')
 
-    print(title, description)
-
     idea = Ideas(
-        id=id,
         title=title,
         description=description,
         id_student=student.id
     )
 
     db.session.add(idea)
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_ideas'))
+
+
+@app.route('/ideas/add_interest_idea/<int:id>')
+def add_interest_idea(id):
+
+    idea = Ideas.query.filter_by(id=id).first()
+    idea.interested = idea.interested + 1
+
     try:
         db.session.commit()
     except:
