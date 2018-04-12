@@ -13,6 +13,10 @@ from app.models.users import User
 
 @app.route('/projets')
 def get_projects():
+    """
+    Pagine et renvoie la liste des projets
+    :return:
+    """
     q = Project.query
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')

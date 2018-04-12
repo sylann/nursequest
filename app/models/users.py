@@ -13,7 +13,6 @@ class User(db.Model):
     password = db.Column(db.Unicode)
     first_name = db.Column(db.Unicode)
     last_name = db.Column(db.Unicode)
-    # hire_date = db.Column(db.Date)
     is_admin = db.Column(db.Boolean, default=False)
 
     @property
@@ -25,7 +24,7 @@ class User(db.Model):
         # TODO: Register a new nurse
 
     def verify_password(self, password):
-        return self.password == password #Changer pour le hash, voir Bcrypt sur google !
+        return self.password == password
 
     def update_password(self, new_password):
         self.password = pwd_context.encrypt(new_password)
@@ -44,8 +43,8 @@ class User(db.Model):
         pass
 
     def __repr__(self):
-        return "<User(id='{}', first_name='{}', last_name='{}', email='{}', password={},is_admin='{}')>".format(self.id, self.first_name, self.last_name, self.email,
-                                                                   self.password, self.is_admin)
+        return "<User(id='{}', first_name='{}', last_name='{}', email='{}', password={},is_admin='{}')>".format(
+            self.id, self.first_name, self.last_name, self.email, self.password, self.is_admin)
 
 
 

@@ -8,7 +8,7 @@
             <div class="column">
                 <h3 class="title is-3">Informations concernant la demande</h3>
                 <div class="field">
-                    <label class="label">Nom de la demande</label>
+                    <label class="label">Sujet</label>
                     <div class="control">
                         <input class="input" type="text" value="{{ data.need.title }}" readonly>
                     </div>
@@ -18,14 +18,14 @@
                         <input class="input" type="text" value="{{ data.need.description }}" readonly>
                     </div>
                     <br>
-                    <label class="label">Durée estimé en tokens</label>
+                    <label class="label">Jetons estimés</label>
                     <div class="control">
                         <input class="input" type="text" value="{{ data.need.estimated_tokens }}" readonly>
                     </div>
                 </div>
             </div>
             <div class="column">
-                {% if data.need.status=='Fermé' or data.need.status=='Validé' %}
+                {% if data.need.status=='Terminé' or data.need.status=='Validé' %}
                     <h3 class="title is-3">Conclusions</h3>
                     <div class="field">
                         <label class="label">Commentaire de l'intervenant</label>
@@ -33,12 +33,12 @@
                             <input class="input" type="text" value="{{ data.need.speaker_conclusion }}" readonly>
                         </div>
                         <br>
-                        <label class="label">Token utilisé au final</label>
+                        <label class="label">Jetons utilisés par l'équipe</label>
                         <div class="control">
                             <input class="input" type="text" value="{{ data.need.used_tokens }}" readonly>
                         </div>
                         <br>
-                        {% if data.need.status=='Fermé' %}
+                        {% if data.need.status=='Terminé' %}
                             <label class="label">Commentaire de l'équipe</label>
                             <div class="control">
                                 <input class="input" type="text" value="{{ data.need.team_conclusion }}" readonly>
@@ -66,10 +66,11 @@
 
                     <section class="modal-card-body">
                         <div class="control">
-                            <input class="input" type="number" placeholder="Token" name="token" required>
+                            <input class="input" type="number" placeholder="Jetons utilisés" name="token" required>
                         </div>
+                        <br>
                         <div class="control">
-                            <input class="input" type="text" placeholder="Bilan" name="appraisal" required>
+                            <input class="input" type="text" placeholder="Commentaire" name="appraisal" required>
                         </div>
                     </section>
                     <footer class="modal-card-foot">

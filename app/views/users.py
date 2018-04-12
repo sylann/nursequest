@@ -1,14 +1,13 @@
-from flask import render_template, request, redirect, url_for, session
-from sqlalchemy import or_
+import bcrypt as b
 
+from flask import render_template, request, redirect, url_for, session, abort
+from sqlalchemy import or_
 from app import app
-from app.views.students import get_student_dashboard
 from app.models.users import User
 from app.models.speakers import Speaker
-from app.models.availabilities import Availabilities
-from app.models.needs import Need
 from app.models.students import Student
-from app.models.ideas import Ideas
+
+SALT = b'$2b$12$QSEeNz4SOAKE/RUZT4zNHO'
 
 
 @app.route('/login')
@@ -16,23 +15,33 @@ def get_login():
     return render_template('login.html')
 
 
-@app.route("/logout")
-def logout():
+@app.route("/logout/<string:error>")
+def logout(error):
+    if error:
+        alert = 'Déconnexion réussie !'
+    else:
+        alert = 'Une erreur est survenue. Veuillez vous reconnecter !'
+
     session.clear()
-    return render_template('login.html', error='Vous avez bien été déconnecté')
+    return render_template('login.html', error=alert)
+
 
 
 @app.route('/login', methods=['POST'])
 def login():
 
-    login = request.form.get('login')
+    login = request.form.get('login').lower()
     password = request.form.get('password')
+    byte_password = str.encode(password)
+    hashed_password = b.hashpw(byte_password, SALT)
+
+
     try:
         #On check s'il existe un utilisateur avec ce login en tant qu'email
         user = User.query.filter_by(email=login).first()
 
         #On check si le mot de passe de cet utilisateur correspond bien
-        if user.verify_password(password):
+        if user.verify_password(str(hashed_password)):
 
             #On regarde si cet utilisateur est un speaker, si oui on le récupère
             check_speaker = Speaker.query.filter_by(id_assigned_user=user.id).first()
@@ -59,9 +68,17 @@ def login():
 
                 #Si on récupère bien un objet student
                 if check_student:
+
                     session['logged_as'] = 'student'
                     print(session)
-                    return redirect(url_for('get_student_dashboard'))
+                    print(check_student)
+                    print(check_student.id_assigned_team)
+                    if check_student.id_assigned_team is None:
+                        session['has_team'] = False
+                        return redirect(url_for('get_create_team'))
+                    else:
+                        session['has_team'] = True
+                        return redirect(url_for('get_student_dashboard'))
 
                 #Sinon, l'utilisateur existe bien mais il est ni un speaker, ni un student
                 else:

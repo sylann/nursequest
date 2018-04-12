@@ -8,8 +8,13 @@ from app.models.needs import Need
 from app.models.speakers import Speaker
 
 
+
 @app.route('/student/need/<int:id>')
 def get_need_page_student(id):
+    """
+    Renvoie le résumé d'un need
+    :return:
+    """
     student = Student.query.filter_by(id_user=session['uid']).first()
     try:
         need = Need.query.get(id)
@@ -49,6 +54,10 @@ def close_need(id):
 
 @app.route('/student/need/new/select-speaker')
 def get_select_speaker():
+    """
+    Renvoie la page de sélection d'un intervenant
+    :return:
+    """
     speakers = Speaker.query.filter_by(role=False).all()
     student = Student.query.filter_by(id_user=session['uid']).first()
 
@@ -63,6 +72,10 @@ def get_select_speaker():
 
 @app.route('/students/need/new/<int:id>')
 def get_create_need(id):
+    """
+    Renvoie la page de création d'un besoin
+    :return:
+    """
     speaker = Speaker.query.get(id)
     student = Student.query.filter_by(id_user=session['uid']).first()
 
@@ -75,6 +88,10 @@ def get_create_need(id):
 
 @app.route('/students/need/new', methods=['POST'])
 def create_need():
+    """
+    Créé le besoin en db
+    :return:
+    """
     student = Student.query.filter_by(id_user=session['uid']).first()
 
     title = request.form.get('title')
@@ -103,9 +120,12 @@ def create_need():
     return redirect(url_for('get_student_dashboard'))
 
 
-
 @app.route('/student/dashboard')
 def get_student_dashboard():
+    """
+    Pagine et renvoie le dashboard utilisateur
+    :return:
+    """
     student = Student.query.filter_by(id_user=session['uid']).first()
     q = Need.query.filter_by(id_assigned_team=student.team.id)
     page = request.args.get('page', default=1, type=int)

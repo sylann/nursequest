@@ -11,6 +11,10 @@ from app.models.speakers import Speaker
 
 @app.route('/mainteacher/dashboard/<int:id>')
 def get_mainteacher_dashboard(id):
+    """
+    Renvoie le dashboard d'un responsable pédago
+    :return:
+    """
     mainteacher = Speaker.query.get(id)
 
     return render_template(

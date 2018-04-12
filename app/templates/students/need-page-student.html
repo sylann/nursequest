@@ -62,11 +62,19 @@
                             </div>
                         </div>
                         <div class="field">
+                            <label class="label">Jetons utilisés</label>
+                            <div class="control">
+                                <input class="input" type="text" name="used_tokens"
+                                        {% if data.need.status != 'En cours' %}
+                                       value="{{ data.need.used_tokens }}" {% else %} value="N/A"{% endif %} readonly>
+                            </div>
+                        </div>
+                        <div class="field">
                             <label class="label">Bilan intervenant</label>
                             <div class="control">
                                 <input class="input" type="text" name="speaker_conclusion"
-                                        {% if data.need.speaker_conclusion != None %}
-                                       value="{{ data.need.speaker_conclusion }}" {% endif %}>
+                                        {% if data.need.status != 'En cours' %}
+                                       value="{{ data.need.speaker_conclusion }}" {% else %} value="N/A" {% endif %}>
                             </div>
                         </div>
                         <div class="field">
@@ -78,20 +86,20 @@
                                         {% if data.need.status == 'Validé' %}
                                        required placeholder="Saisir la conclusion de l'équipe suite à l'intervention."
                                         {% else %}
-                                       readonly
+                                       readonly value="N/A"
                                         {% endif %}>
                             </div>
                         </div>
                     </div>
                 </div>
                 {% if data.need.status == 'Validé' %}
-                <div class="field is-grouped is-grouped-right">
-                    <div class="field is-grouped">
-                        <div class="control">
-                            <button class="button is-link">Terminer la demande</button>
+                    <div class="field is-grouped is-grouped-right">
+                        <div class="field is-grouped">
+                            <div class="control">
+                                <button class="button is-link">Terminer la demande</button>
+                            </div>
                         </div>
                     </div>
-                </div>
                 {% endif %}
             </form>
         </div>
