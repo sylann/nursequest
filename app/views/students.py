@@ -1,50 +1,102 @@
-from pprint import pprint
+from flask import render_template, request, redirect, url_for, session, abort
 
-from flask import render_template, request, redirect, url_for
-from sqlalchemy import cast
-import datetime
+from sqlalchemy import or_
 
 from app import app, db
 from app.models.students import Student
 from app.models.needs import Need
+from app.models.speakers import Speaker
 
 
-@app.route('/student/dashboard/<int:id>')
-def get_student_dashboard(id):
-    student = Student.query.get(id)
-    print(student.team.project)
-    print(student.team)
+@app.route('/student/need/<int:id>')
+def get_need_page_student(id):
+    need = Need.query.get(id)
+    #TODO : 404
+    return render_template('students/need-page-student.html',
+                           data={'need': need},
+                           title='Résumé du besoin')
 
-    needs = Need.query.filter_by(id_assigned_team=student.team.id).all()
-    print('TTTTTTTTTTTTTTt', needs)
 
-    #Team : Name, tokens restants
-    #Projet : titre / desc
-    #Needs : intervenant / nb tokens
+@app.route('/student/need/new')
+def get_select_speaker():
+    speakers = Speaker.query.filter_by(role=False).all()
+    student = Student.query.filter_by(id_user=session['uid']).first()
 
-    return render_template('students/project-stage.html',
-                           data={'student': student,
-                                 'team_needs': needs},
-                           title='Dashboard')
+    return render_template(
+        'students/speaker-choice.html',
+        current_route='get_select_speaker',
+        title='Choisir son intervenant',
+        data=speakers,
+        student=student)
 
-@app.route('/student')
-def get_student():
-    q = Patient.query
+
+@app.route('/students/need/new/<int:id>')
+def get_create_need(id):
+    speaker = Speaker.query.get(id)
+    student = Student.query.filter_by(id_user=session['uid']).first()
+
+    return render_template('students/create-need.html',
+                           title='Définir votre besoin',
+                           data={'speaker': speaker,
+                                 'student': student}
+                           )
+
+
+@app.route('/students/need/new', methods=['POST'])
+def create_need():
+    student = Student.query.filter_by(id_user=session['uid']).first()
+
+    title = request.form.get('title')
+    description = request.form.get('description')
+    speaker_id = request.form.get('speaker_id')
+    estimated_tokens = int(request.form.get('estimated_tokens'))
+
+    print('CCCCCCCCCCCCCCCCCCCC')
+    print(title, description, speaker_id, estimated_tokens)
+
+    if estimated_tokens < 0:
+        estimated_tokens = 0
+
+    need = Need(
+        title=title,
+        description=description,
+        estimated_tokens=estimated_tokens,
+        status='En cours',
+        id_assigned_team=student.team.id,
+        id_assigned_speaker=speaker_id
+    )
+
+    db.session.add(need)
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_student_dashboard'))
+
+
+
+
+@app.route('/student/dashboard')
+def get_student_dashboard():
+    student = Student.query.filter_by(id_user=session['uid']).first()
+    q = Need.query.filter_by(id_assigned_team=student.team.id)
     page = request.args.get('page', default=1, type=int)
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Patient.first_name.ilike('%' + searched + '%'),
-            Patient.last_name.ilike('%' + searched + '%'),
-            Patient.email.ilike('%' + searched + '%'),
-            Patient.social_number.ilike('%' + searched + '%')
+            Need.title.ilike('%' + searched + '%'),
+            Need.description.ilike('%' + searched + '%'),
+            Need.status.ilike('%' + searched + '%'),
         ))
-    patients = q.paginate(page, 10, False)
+    needs = q.paginate(page, 10, False)
+
     return render_template(
-        'patients.html',
-        current_route='get_patients',
-        title='List of admitted patients',
-        subtitle='',
-        data=patients,
+        'students/project-stage.html',
+        current_route='get_student_dashboard',
+        title=student.team.project.title,
+        subtitle='Retrouvez ici l\'ensemble de vos demandes !',
+        data=needs,
+        student=student,
         searched=searched
     )

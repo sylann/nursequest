@@ -58,7 +58,7 @@ def login():
                 if check_student:
                     session['logged_as'] = 'student'
                     print(session)
-                    return redirect(url_for('get_student_dashboard', id=check_student.id))
+                    return redirect(url_for('get_student_dashboard'))
 
                 #Sinon, l'utilisateur existe bien mais il est ni un speaker, ni un student
                 else:
