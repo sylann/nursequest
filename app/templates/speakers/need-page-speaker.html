@@ -25,7 +25,7 @@
                 </div>
             </div>
             <div class="column">
-                {% if data.need.status=='Fermé' or data.need.status=='Validé' %}
+                {% if data.need.status=='Terminé' or data.need.status=='Validé' %}
                     <h3 class="title is-3">Conclusions</h3>
                     <div class="field">
                         <label class="label">Commentaire de l'intervenant</label>
@@ -38,7 +38,7 @@
                             <input class="input" type="text" value="{{ data.need.used_tokens }}" readonly>
                         </div>
                         <br>
-                        {% if data.need.status=='Fermé' %}
+                        {% if data.need.status=='Terminé' %}
                             <label class="label">Commentaire de l'équipe</label>
                             <div class="control">
                                 <input class="input" type="text" value="{{ data.need.team_conclusion }}" readonly>

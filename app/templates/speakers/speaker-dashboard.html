@@ -3,36 +3,44 @@
 {% block content %}
 
     {% include '_title.html' %}
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <section class="section">
+    <div class="container">
+        {% include '_searchbar.html' %}
+    </div>
+    </section>
+
+    <section class="section">
     <div class="container">
 
-            <table class="table is-striped is-hoverable">
-                    <thead>
-                    <th>Projet concerné</th>
-                    <th>Titre</th>
-                    <th>Prix estimé en tokens</th>
-                    <th>Status</th>
-                    <th>Equipe</th>
-                    </thead>
+        {% for need in data.items %}
 
-                    <tbody>
-                    {% for need in data.attribute_needs %}
-                        <tr class='clickable-row' data-href="{{ url_for('get_need_page', id=need.id) }}">
-                            <td>{{ need.team.project.title }}</td>
-                            <td>{{ need.title }}</td>
-                            <td>{{ need.estimated_tokens }}</td>
-                            <td>{{ need.status }}</td>
-                            <td>{{ need.team.name }}</td>
-                        </tr>
-                    {% endfor %}
-                    </tbody>
-            </table>
+            <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <strong>{{ need.team.project.title }}</strong>
+                                        <small>{{ need.title }}</small>
+                                        -
+                                        <small>{{ need.estimated_tokens }} estimated tokens</small>
+                                        -
+                                        <small>{{ need.status }}</small>
+                                        <br>
+                                        {{ need.team.name }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="media-right">
+                                <p class="control">
+                                    <a class="button" href="{{ url_for('get_need_page', id=need.id) }}">
+                                        <span>Ouvrir</span>
+                                    </a>
+                                </p>
+                            </div>
+                        </article>
+                    </div>
+
+        {% endfor %}
     </div>
-<script>
- jQuery(document).ready(function($) {
-    $(".clickable-row").click(function() {
-        window.location = $(this).data("href");
-    });
-});
- </script>
+    </section>
 {% endblock %}

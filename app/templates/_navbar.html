@@ -22,7 +22,7 @@
 
                 {% elif session['logged_as']=='speaker' %}
 
-                    <a href="{{ url_for('get_speaker_dashboard', id=session['uid']) }}"
+                    <a href="{{ url_for('get_speaker_dashboard') }}"
                        class="navbar-item">Dashboard</a>
                     <a href="{{ url_for('get_profile', id=session['uid']) }}" class="navbar-item">Profil</a>
 
