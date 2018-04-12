@@ -9,7 +9,7 @@ from app.views import teams, ideas, projects, tags, users, speakers, mainteacher
 @app.route('/')
 def index():
     return render_template(
-        'home.html',
+        'login.html',
         title='Bienvenue sur WETA !',
         subtitle='Workshop Enhanced Token Administration'
     )
