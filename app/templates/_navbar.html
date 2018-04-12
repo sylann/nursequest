@@ -1,15 +1,14 @@
 <nav class="navbar is-dark">
     <div class="navbar-brand">
-        <a class="navbar-item" href="#">
-            <img src="../static/img/weta.png" alt="WETA : Workshop Enhanced Token Administration" width="112"
-                 height="28">
-        </a>
-
-        <button class="button navbar-burger">
-            <span></span>
-            <span></span>
-            <span></span>
-        </button>
+      <a class="navbar-item" href="#">
+        <img src="../static/img/weta.png" alt="WETA : Workshop Enhanced Token Administration" width="112" height="28">
+      </a>
+  
+      <button class="button navbar-burger">
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
     </div>
 
     <div class="navbar-menu">
@@ -44,9 +43,9 @@
         </div>
         <div class="navbar-end">
             {% if session['uid'] %}
-                <a href="{{ url_for('logout') }}" class="navbar-item">Log out</a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">Deconnexion</a>
             {% else %}
-                <a href="{{ url_for('login') }}" class="navbar-item">Log in</a>
+                <a href="{{ url_for('login') }}" class="navbar-item">Connexion</a>
             {% endif %}
         </div>
     </div>
