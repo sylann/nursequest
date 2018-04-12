@@ -1,6 +1,6 @@
 from pprint import pprint
 
-from flask import render_template, request, redirect, url_for
+from flask import render_template, request, redirect, url_for, abort, session
 from sqlalchemy import or_
 from sqlalchemy.exc import IntegrityError
 import datetime
@@ -72,6 +72,7 @@ def get_speaker_dashboard(id):
                            data={'speaker': speaker},
                            title='Bienvenue ' + speaker.user.full_name,
                            subtitle='Intervenant')
+
 
 @app.route('/speakers')
 def get_speakers():

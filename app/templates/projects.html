@@ -1,34 +1,43 @@
 {% extends '_base.html' %}
 
 {% block content %}
-{% include '_title.html' %}
-    <div class="container">
-
-        <div class="card">
-            <header class="card-header">
-                <p class="card-header-title"> Projets </p>
-                <a href="#" class="card-header-icon">
-                    <span class="icon">
-                        <i class="fa fa-angle-down"></i>
-                    </span>
-                </a>
-            </header>
-            <div class="card-content">
-                <div class="content">
-                    <p>
-                        Something wonderful will happen!<br>
-                        Something wonderful...
-                        Lorem ipsum dolor sit amet, consectetur adipisicing elit. Accusamus, assumenda, consectetur cupiditate dignissimos fuga id illo incidunt ipsam laboriosam maxime nisi odio perferendis quisquam saepe sapiente sit tempore, vero voluptatibus.
-                    <a href="#">#wonderful</a>.
-                    <a href="#">#amazing</a>
-                    <a href="#">#unknown</a>
-                    <br>
-                    <time datetime="2018-1-27">11:09 PM - 27 Jan 2018</time>
+    {% include '_title.html' %}
+    <section class="section" xmlns="http://www.w3.org/1999/html">
+        <div class="container">
+            {% include '_searchbar.html' %}
+            <div class="control">
+                <div class="field is-grouped is-grouped-right">
+                    <div class="control">
+                        <a class="button is-dark is-focused" href="{{ url_for('get_create_project') }}">Ajouter un nouveau projet</a>
+                    </div>
                 </div>
             </div>
-            <footer class="card-footer">
-                <a href="{{ url_for('index') }}" class="card-footer-item">Retour à l'accueil</a>
-            </footer>
+            <br>
+            {% if data.items | count > 0 %}
+                {% for project in data.items %}
+                    <div class="box">
+                        <article class="media">
+                            <div class="media-content">
+                                <div class="content">
+                                    <p>
+                                        <a href="{{ url_for('get_projects', id=project.id) }}"><strong>{{ project.title }}</strong></a>
+                                        {#  <small >- Initiateur : <a  href="mailto:{{ idea.user.email }} ?subject=Workshop EPSI - Idée {{ idea.title }}" >{{ idea.user.full_name }}</a></small>#}
+                                        <br>
+                                        <br>
+                                        {{ project.description }}
+                                    </p>
+                                </div>
+                            </div>
+                            <div class="media-right" align="center">
+
+                            </div>
+                        </article>
+                    </div>
+                {% endfor %}
+                {% include '_pagination.html' %}
+            {% else %}
+                <p>Aucune projet n'a encore été créé !</p>
+            {% endif %}
         </div>
-    </div>
+    </section>
 {% endblock %}

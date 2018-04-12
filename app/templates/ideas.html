@@ -25,7 +25,7 @@
                                 <div class="content">
                                     <p>
                                         <a href="{{ url_for('get_ideas', id=idea.id) }}"><strong>{{ idea.title }}</strong></a>
-                                        <small >- Initiateur : <a  href="mailto:{{ idea.student.user.email }} ?subject=Workshop EPSI - Idée {{ idea.title }}" >{{ idea.student.user.full_name }}</a></small>
+                                        <small >- Initiateur : <a  href="mailto:{{ idea.user.email }} ?subject=Workshop EPSI - Idée {{ idea.title }}" >{{ idea.user.full_name }}</a></small>
                                         <br>
                                         <br>
                                         {{ idea.description }}

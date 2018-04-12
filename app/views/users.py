@@ -15,10 +15,12 @@ from app.models.ideas import Ideas
 def get_login():
     return render_template('login.html')
 
+
 @app.route("/logout")
 def logout():
     session.clear()
     return render_template('login.html', error='Vous avez bien été déconnecté')
+
 
 @app.route('/login', methods=['POST'])
 def login():
@@ -28,7 +30,6 @@ def login():
     try:
         #On check s'il existe un utilisateur avec ce login en tant qu'email
         user = User.query.filter_by(email=login).first()
-        print(user)
 
         #On check si le mot de passe de cet utilisateur correspond bien
         if user.verify_password(password):
@@ -40,15 +41,15 @@ def login():
 
             #Si on récupère bien un objet speaker, on vérifie si c'est un intervenant (role null)
             if check_speaker and not check_speaker.role:
-                session['uid'] = check_speaker.id
+                session['uid'] = check_speaker.id_assigned_user
                 session['logged_as'] = 'speaker'
-                return redirect(url_for('get_speaker_dashboard', id=check_speaker.id))
+                return redirect(url_for('get_speaker_dashboard', id=check_speaker.id_assigned_user))
 
             #Si on récupère bien un objet speaker, on vérifie si c'est un responsable pédago (role true)
             elif check_speaker and check_speaker.role:
-                session['uid'] = check_speaker.id
+                session['uid'] = check_speaker.id_assigned_user
                 session['logged_as'] = 'main_teacher'
-                return redirect(url_for('get_mainteacher_dashboard', id=check_speaker.id))
+                return redirect(url_for('get_mainteacher_dashboard', id=check_speaker.id_assigned_user))
 
             #Si on ne récupère pas d'objet speaker
             else:
@@ -71,7 +72,6 @@ def login():
     except Exception as e:
         print(e)
         return render_template('login.html', error='Cet identifiant n\'existe pas')
-
 
 
 @app.route('/forgotten-password')

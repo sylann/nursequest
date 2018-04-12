@@ -7,7 +7,7 @@ import datetime
 
 from app import app, db
 from app.models.ideas import Ideas
-from app.models.students import Student
+from app.models.users import User
 
 
 @app.route('/ideas')
@@ -34,25 +34,29 @@ def get_ideas():
 
 @app.route('/ideas/new/')
 def get_create_idea():
-    student = Student.query.filter_by(id_user=session['uid']).first()
+    user = User.query.filter_by(id=session['uid']).first()
 
     return render_template(
         'create_idea.html',
         title='Proposez une nouvelle idée de projet',
-        data={'student': student}
+        data={'user': user}
         )
 
 
 @app.route('/ideas/create_idea', methods=['POST'])
 def create_idea():
-    student = Student.query.filter_by(id_user=session['uid']).first()
+    user = User.query.filter_by(id=session['uid']).first()
     title = request.form.get('title')
     description = request.form.get('description')
+
+    print(session)
+    print(user)
 
     idea = Ideas(
         title=title,
         description=description,
-        id_student=student.id
+        id_user=user.id,
+        interested=1
     )
 
     db.session.add(idea)
