@@ -2,13 +2,9 @@ from flask import render_template, request, redirect, url_for, session
 from sqlalchemy import or_
 
 from app import app
-from app.views.students import get_student_dashboard
 from app.models.users import User
 from app.models.speakers import Speaker
-from app.models.availabilities import Availabilities
-from app.models.needs import Need
 from app.models.students import Student
-from app.models.ideas import Ideas
 
 
 @app.route('/login')
@@ -58,9 +54,14 @@ def login():
 
                 #Si on récupère bien un objet student
                 if check_student:
+
                     session['logged_as'] = 'student'
                     print(session)
-                    return redirect(url_for('get_student_dashboard'))
+                    if check_student.id_assigned_team is None:
+                        session['has_team'] = False
+                        return redirect(url_for('get_create_team'))
+                    else:
+                        return redirect(url_for('get_student_dashboard'))
 
                 #Sinon, l'utilisateur existe bien mais il est ni un speaker, ni un student
                 else:
