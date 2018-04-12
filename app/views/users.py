@@ -40,11 +40,13 @@ def login():
 
             #Si on récupère bien un objet speaker, on vérifie si c'est un intervenant (role null)
             if check_speaker and not check_speaker.role:
+                session['uid'] = check_speaker.id
                 session['logged_as'] = 'speaker'
                 return redirect(url_for('get_speaker_dashboard', id=check_speaker.id))
 
             #Si on récupère bien un objet speaker, on vérifie si c'est un responsable pédago (role true)
             elif check_speaker and check_speaker.role:
+                session['uid'] = check_speaker.id
                 session['logged_as'] = 'main_teacher'
                 return redirect(url_for('get_mainteacher_dashboard', id=check_speaker.id))
 
