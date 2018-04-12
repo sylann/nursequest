@@ -8,6 +8,7 @@ from app.models.needs import Need
 from app.models.speakers import Speaker
 
 
+
 @app.route('/student/need/<int:id>')
 def get_need_page_student(id):
     student = Student.query.filter_by(id_user=session['uid']).first()
