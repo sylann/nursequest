@@ -1,23 +1,29 @@
 <nav class="navbar is-dark">
     <div class="navbar-brand">
-      <a class="navbar-item" href="#">
-        <img src="../static/img/weta.png" alt="WETA : Workshop Enhanced Token Administration" width="112" height="28">
-      </a>
-  
-      <button class="button navbar-burger">
-        <span></span>
-        <span></span>
-        <span></span>
-      </button>
+        <a class="navbar-item" href="#">
+            <img src="../static/img/weta.png" alt="WETA : Workshop Enhanced Token Administration" width="112"
+                 height="28">
+        </a>
+
+        <button class="button navbar-burger">
+            <span></span>
+            <span></span>
+            <span></span>
+        </button>
     </div>
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a href="{{ url_for('index') }}" class="navbar-item">Accueil</a>
+            {% if session['uid'] %}
+                <a href="{{ url_for('index') }}" class="navbar-item">Accueil</a>
+            {% endif %}
             <a href="{{ url_for('get_ideas') }}" class="navbar-item">Idées</a>
-            <a href="{{ url_for('get_projects') }}" class="navbar-item">Projets</a>
-            <a href="{{ url_for('get_teams') }}" class="navbar-item">Equipes</a>
-            <a href="{{ url_for('get_speakers') }}" class="navbar-item">Intervenants</a>
+            {% if session['uid'] %}
+                <a href="{{ url_for('get_projects') }}" class="navbar-item">Projets</a>
+                <a href="{{ url_for('get_teams') }}" class="navbar-item">Equipes</a>
+                <a href="{{ url_for('get_speakers') }}" class="navbar-item">Intervenants</a>
+                <a href="{{ url_for('get_student_dashboard') }}" class="navbar-item">Demandess</a>
+            {% endif %}
         </div>
         <div class="navbar-end">
             {% if session['uid'] %}
@@ -27,4 +33,4 @@
             {% endif %}
         </div>
     </div>
-  </nav>
+</nav>

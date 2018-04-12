@@ -10,8 +10,10 @@ from app.models.speakers import Speaker
 
 @app.route('/student/need/<int:id>')
 def get_need_page_student(id):
-    need = Need.query.get(id)
-    #TODO : 404
+    try:
+        need = Need.query.get(id)
+    except:
+        abort(500)
     return render_template('students/need-page-student.html',
                            data={'need': need},
                            title='Résumé du besoin')
@@ -51,9 +53,6 @@ def create_need():
     speaker_id = request.form.get('speaker_id')
     estimated_tokens = int(request.form.get('estimated_tokens'))
 
-    print('CCCCCCCCCCCCCCCCCCCC')
-    print(title, description, speaker_id, estimated_tokens)
-
     if estimated_tokens < 0:
         estimated_tokens = 0
 
@@ -73,7 +72,6 @@ def create_need():
         abort(500)
 
     return redirect(url_for('get_student_dashboard'))
-
 
 
 
