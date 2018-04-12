@@ -1,5 +1,5 @@
 # WETA - Workshop Enhanced Token Administration
-*Initial Project forked thanks to https://github.com/SylannBin*
+*Initial Project forked thanks to https://github.com/SylannBin , a classmate.*
 
 ## Team Members :
 
@@ -23,8 +23,8 @@ Create a token administration platform used by several types of users for EPSI W
 
 ## Techs :
 
-- Backend : TBA
-- Front-end : TBA
+- Backend : Flask (microframework Python 3)
+- Front-end : Jinja2
 - Versionning system : Github
 - Continuous Integration : VSTS - Agile Mode
 
@@ -87,30 +87,6 @@ flask run --reload
 
 [Font awesome icons](http://fontawesome.io/icons/)
 
-# Organization - To Be Modified
-## Routes:
-
-- POST /register
-- GET /login
-- GET /logout
-- GET /
-- GET /patients
-- GET /patients/<id>
-- POST /patients/<id>
-- PUT /patients/<id>
-- PUT /patients/<id>/assign/<nurse_id>
-- DELETE /patients/<id>
-- GET /users
-- GET /users/<id>
-- PUT /users/<id>/reset_password
-- GET /diseases
-- GET /diseases/update
-
-## Routes temp
-
-- GET /users/fake/<quantity>
-- GET /patients/fake/<quantity>
-- GET /diseases/fake/caught_diseases
 
 ## Folder Organisation
 ```
@@ -130,10 +106,10 @@ app/
         __init__.py
         *.py
     __init__.py
-    utils.py
+    errors.py
 .gitignore
 LICENSE
-nursequest.db
+weta.db
 README.md
 requirements.txt
 run.py
