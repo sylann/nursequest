@@ -23,7 +23,7 @@ def logout():
 @app.route('/login', methods=['POST'])
 def login():
 
-    login = request.form.get('login')
+    login = request.form.get('login').lower()
     password = request.form.get('password')
     try:
         #On check s'il existe un utilisateur avec ce login en tant qu'email

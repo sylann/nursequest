@@ -13,17 +13,37 @@
 
     <div class="navbar-menu">
         <div class="navbar-start">
-            <a href="{{ url_for('index') }}" class="navbar-item">Accueil</a>
+            {% if session['logged_as'] %}
+
+                {% if session['logged_as']=='student' %}
+
+                    <a href="{{ url_for('get_student_dashboard') }}" class="navbar-item">Dashboard</a>
+
+                {% elif session['logged_as']=='speaker' %}
+
+                    <a href="{{ url_for('get_speaker_dashboard') }}"
+                       class="navbar-item">Dashboard</a>
+                    <a href="{{ url_for('get_profile', id=session['uid']) }}" class="navbar-item">Profil</a>
+
+                {% elif session['logged_as']=='main_teacher' %}
+
+                    <a href="{{ url_for('get_mainteacher_dashboard', id=session['uid']) }}" class="navbar-item">Dashboard</a>
+                    <a href="{{ url_for('get_profile', id=session['uid']) }}" class="navbar-item">Profil</a>
+                    <a href="{{ url_for('get_speakers') }}" class="navbar-item">Intervenants</a>
+                    <a href="{{ url_for('get_projects') }}" class="navbar-item">Projets</a>
+                    <a href="{{ url_for('get_teams') }}" class="navbar-item">Equipes</a>
+                {% endif %}
+
+            {% endif %}
+
             <a href="{{ url_for('get_ideas') }}" class="navbar-item">Idées</a>
-            <a href="{{ url_for('get_projects') }}" class="navbar-item">Projets</a>
-            <a href="{{ url_for('get_teams') }}" class="navbar-item">Equipes</a>
-            <a href="{{ url_for('get_speakers') }}" class="navbar-item">Intervenants</a>
+
         </div>
         <div class="navbar-end">
             {% if session['uid'] %}
-                <a href="{{ url_for('logout') }}" class="navbar-item">Log out</a>
+                <a href="{{ url_for('logout') }}" class="navbar-item">Deconnexion</a>
             {% else %}
-                <a href="{{ url_for('login') }}" class="navbar-item">Log in</a>
+                <a href="{{ url_for('login') }}" class="navbar-item">Connexion</a>
             {% endif %}
         </div>
     </div>
