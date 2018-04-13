@@ -31,6 +31,15 @@ def key_error(error):
     print_error(error)
     return redirect(url_for('logout', error=True))
 
+@app.errorhandler(NotImplementedError)
+def not_implemented_error(error):
+    """
+    Gère les fonctions non implémentées
+    :return:
+    """
+    print_error(error)
+    return render_template('errors/non-implemented.html', title='Oups!')
+
 
 def print_error(error):
     """

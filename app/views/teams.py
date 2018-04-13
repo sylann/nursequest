@@ -55,23 +55,24 @@ def create_team():
     Crée une équipe en DB
     :return:
     """
-    name = request.form.get('name')
-    description = request.form.get('description')
-    tokens = request.form.get('tokens')
-
-    team = Team(
-        name=name,
-        description=description
-    )
-
-    db.session.add(team)
-    try:
-        db.session.commit()
-    except:
-        abort(500)
-
-    return redirect(url_for('get_ideas'))
-    students = request.form.get('users')
-    project = request.form.get('project')
-
-    return redirect(url_for('get_teams'))
+    raise NotImplementedError
+    # name = request.form.get('name')
+    # description = request.form.get('description')
+    # tokens = request.form.get('tokens')
+    #
+    # team = Team(
+    #     name=name,
+    #     description=description
+    # )
+    #
+    # db.session.add(team)
+    # try:
+    #     db.session.commit()
+    # except:
+    #     abort(500)
+    #
+    # return redirect(url_for('get_ideas'))
+    # students = request.form.get('users')
+    # project = request.form.get('project')
+    #
+    # return redirect(url_for('get_teams'))
