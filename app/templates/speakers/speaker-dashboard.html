@@ -13,34 +13,33 @@
     <div class="container">
 
         {% for need in data.items %}
-
             <div class="box">
-                        <article class="media">
-                            <div class="media-content">
-                                <div class="content">
-                                    <p>
-                                        <strong>{{ need.title }}</strong>
-                                        <small>Equipe : {{ need.team.name }}</small>
-                                        -
-                                        <small>{{ need.estimated_tokens }} estimated tokens</small>
-                                        -
-                                        <small>{{ need.status }}</small>
-                                        <br>
-                                        {{ need.description }}
-                                    </p>
-                                </div>
-                            </div>
-                            <div class="media-right">
-                                <p class="control">
-                                    <a class="button" href="{{ url_for('get_need_page', id=need.id) }}">
-                                        <span>Ouvrir</span>
-                                    </a>
-                                </p>
-                            </div>
-                        </article>
+                <article class="media">
+                    <div class="media-content">
+                        <div class="content">
+                            <p>
+                                <strong>{{ need.title }}</strong>
+                                <small>Equipe : {{ need.team.name }}</small>
+                                -
+                                <small>{{ need.estimated_tokens }} estimated tokens</small>
+                                -
+                                <small>{{ need.status }}</small>
+                                <br>
+                                {{ need.description }}
+                            </p>
+                        </div>
                     </div>
-
+                    <div class="media-right">
+                        <p class="control">
+                            <a class="button" href="{{ url_for('get_need_page', id=need.id) }}">
+                                <span>Ouvrir</span>
+                            </a>
+                        </p>
+                    </div>
+                </article>
+            </div>
         {% endfor %}
+    {% include '_pagination.html' %}
     </div>
     </section>
 {% endblock %}

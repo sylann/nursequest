@@ -1,5 +1,5 @@
 from app.models import db
-from app.models.students import Student
+from app.models.users import User
 
 
 class Ideas(db.Model):
@@ -10,12 +10,12 @@ class Ideas(db.Model):
     description = db.Column(db.String)
     interested = db.Column(db.Integer)
 
-    id_student = db.Column(db.Integer, db.ForeignKey(Student.id, name="fk_student_id"))
-    student = db.relationship('Student', lazy='joined')
+    id_user = db.Column(db.Integer, db.ForeignKey(User.id, name="fk_user_id"))
+    user = db.relationship('User', lazy='joined')
 
     def __repr__(self):
-        return "<Ideas (id='{}, title='{}', description='{}', id_student='{}', interested='{}')>".format(
-            self.id, self.title, self.description, self.id_student, self.interested)
+        return "<Ideas (id='{}, title='{}', description='{}', id_user='{}', interested='{}')>".format(
+            self.id, self.title, self.description, self.id_user, self.interested)
 
 
 

@@ -5,13 +5,10 @@
 
     <section class="section">
         <div class="container">
-
-            <form method="post" action="{{ url_for('create_idea') }}"
+            <form method="post" action="{{ url_for('create_project') }}"
                   enctype="multipart/form-data">
-
                 <div class="columns">
                     <div class="column">
-                        <h3 class="title is-3">Nouvelle idée de projet</h3>
                         <div class="field">
                             <label class="label">Titre</label>
                             <div class="control">
@@ -24,11 +21,31 @@
                                 <input class="input" type="text" name="description" required>
                             </div>
                         </div>
+                        <div class="field">
+                            <label class="label">Jetons</label>
+                            <div class="control">
+                                <input class="input" type="number" name="token_number" value=300 required>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <div class="field">
+                            <label class="label">Membres de l'équipe minimum</label>
+                            <div class="control">
+                                <input class="input" type="number" name="min_members" value=3 required>
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Membres de l'équipe maximum</label>
+                            <div class="control">
+                                <input class="input" type="number" name="max_members" value=5 required>
+                            </div>
+                        </div>
                     </div>
                 </div>
                 <div class="field is-grouped is-grouped-right">
                     <div class="control">
-                        <a href="{{ url_for('get_ideas') }}">
+                        <a href="{{ url_for('get_projects') }}">
                             <button class="button is-text" type="button">Annuler</button>
                         </a>
                     </div>
