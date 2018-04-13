@@ -39,6 +39,7 @@ def close_need(id):
         abort(500)
 
     need.status = 'Terminé'
+    need.team_conclusion = request.form.get('team_conclusion')
     if need.team.tokens < 0:
         need.team.tokens = 0
     else:

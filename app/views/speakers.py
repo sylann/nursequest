@@ -46,13 +46,15 @@ def get_profile(id):
     :return:
     """
     user = User.query.filter_by(id=id).first()
-
-    user_needs = Need.query.filter_by(id_assigned_speaker=user.id).all()
+    speaker = Speaker.query.filter_by(id_assigned_user=user.id).first()
+    user_needs = Need.query.filter_by(id_assigned_speaker=speaker.id).all()
 
     needs_count = len([need for need in user_needs if need.status == 'Terminé' or need.status == 'Validé'])
 
+
     return render_template('speakers/speaker-profile.html',
                            data={'user': user,
+                                 'speaker': speaker,
                                  'needs': needs_count},
                            title='Profil',
                            subtitle=session['full_name'])
@@ -65,9 +67,10 @@ def update_profile(id):
     :return:
     """
     tags = request.form.get('tags')
-    user = User.query.filter_by(id=id).first()
+    user = User.query.get(id)
+    speaker = Speaker.query.filter_by(id_assigned_user=user.id).first()
 
-    user.tags = tags
+    speaker.tags = tags
     try:
         db.session.commit()
     except:

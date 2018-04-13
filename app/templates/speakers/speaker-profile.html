@@ -8,7 +8,7 @@
             {% if session['logged_as'] == 'speaker' %}
             <div class="columns">
                 <div class="column">
-                    <h1 class="title">{{ data.user.tokens }}</h1>
+                    <h1 class="title">{{ data.speaker.tokens }}</h1>
                     <h2 class="subtitle">Jetons totaux</h2>
                 </div>
                 <div class="column">
@@ -63,7 +63,7 @@
                     <div class="field">
                         <label class="label">Tags</label>
                         <div class="control">
-                            <input class="input" type="text" name="tags" value="{{ data.user.tags }}" required>
+                            <input class="input" type="text" name="tags" value="{{ data.speaker.tags }}" required>
                         </div>
                     </div>
                     <div class="field is-grouped">

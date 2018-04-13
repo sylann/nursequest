@@ -25,9 +25,6 @@ def logout(error):
     session.clear()
     return render_template('login.html', error=alert)
 
-    return render_template('login.html', error=alert)
-
-
 
 @app.route('/login', methods=['POST'])
 def login():
