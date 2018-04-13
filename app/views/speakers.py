@@ -117,7 +117,7 @@ def get_speaker_dashboard():
             Need.title.ilike('%' + searched + '%'),
             Need.description.ilike('%' + searched + '%')
         ))
-    needs = q.paginate(page, 10, False)
+    needs = q.paginate(page, 5, False)
     return render_template(
         'speakers/speaker-dashboard.html',
         current_route='get_speaker_dashboard',

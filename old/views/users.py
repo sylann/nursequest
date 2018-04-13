@@ -32,7 +32,7 @@ def get_users():
             User.last_name.ilike('%' + searched + '%'),
             User.email.ilike('%' + searched + '%')
         ))
-    users = q.paginate(page, 10, False)
+    users = q.paginate(page, 5, False)
     return render_template(
         'users.html',
         current_route='get_users',

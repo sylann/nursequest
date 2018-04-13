@@ -23,7 +23,7 @@ def get_availabilities():
             Availabilities.date_end.ilike('%' + searched + '%'),
             Availabilities.id_assigned_speaker.ilike('%' + searched + '%')
         ))
-    availabilities = q.paginate(page, 15, False)
+    availabilities = q.paginate(page, 5, False)
     return render_template(
         'availabilities.html',
         current_route='get_availabilities',

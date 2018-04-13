@@ -23,7 +23,7 @@
                     <a href="{{ url_for('get_profile', id=session['uid']) }}" class="navbar-item">Profil</a>
 
                 {% elif session['logged_as']=='main_teacher' %}
-                    <a href="{{ url_for('get_mainteacher_dashboard', id=session['uid']) }}" class="navbar-item">Dashboard</a>
+                    <a href="{{ url_for('get_speaker_dashboard', id=session['uid']) }}" class="navbar-item">Dashboard</a>
                     <a href="{{ url_for('get_profile', id=session['uid']) }}" class="navbar-item">Profil</a>
                     <a href="{{ url_for('get_projects') }}" class="navbar-item">Intervenants & Demandes</a>
                     <a href="{{ url_for('get_projects') }}" class="navbar-item">Projets</a>

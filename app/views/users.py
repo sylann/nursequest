@@ -61,7 +61,7 @@ def login():
             elif check_speaker and check_speaker.role:
                 session['uid'] = check_speaker.id_assigned_user
                 session['logged_as'] = 'main_teacher'
-                return redirect(url_for('get_mainteacher_dashboard', id=check_speaker.id_assigned_user))
+                return redirect(url_for('get_speaker_dashboard', id=check_speaker.id_assigned_user))
 
             #Si on ne récupère pas d'objet speaker
             else:
@@ -110,7 +110,7 @@ def get_users():
             User.last_name.ilike('%' + searched + '%'),
             User.email.ilike('%' + searched + '%')
         ))
-    users = q.paginate(page, 10, False)
+    users = q.paginate(page, 5, False)
     return render_template(
         'users.html',
         current_route='get_users',

@@ -20,7 +20,7 @@ def get_ideas():
             Ideas.title.ilike('%' + searched + '%'),
             Ideas.description.ilike('%' + searched + '%')
         ))
-    ideas = q.paginate(page, 10, False)
+    ideas = q.paginate(page, 5, False)
     return render_template(
         'ideas.html',
         current_route='get_ideas',

@@ -24,7 +24,7 @@ def get_projects():
             Project.title.ilike('%' + searched + '%'),
             Project.description.ilike('%' + searched + '%')
         ))
-    projects = q.paginate(page, 10, False)
+    projects = q.paginate(page, 5, False)
     return render_template(
         'projects.html',
         current_route='get_projects',
