@@ -13,7 +13,6 @@ class User(db.Model):
     password = db.Column(db.Unicode)
     first_name = db.Column(db.Unicode)
     last_name = db.Column(db.Unicode)
-    # hire_date = db.Column(db.Date)
     is_admin = db.Column(db.Boolean, default=False)
 
     @property
@@ -44,8 +43,8 @@ class User(db.Model):
         pass
 
     def __repr__(self):
-        return "<User(id='{}', first_name='{}', last_name='{}', email='{}', password={},is_admin='{}')>".format(self.id, self.first_name, self.last_name, self.email,
-                                                                   self.password, self.is_admin)
+        return "<User(id='{}', first_name='{}', last_name='{}', email='{}', password={},is_admin='{}')>".format(
+            self.id, self.first_name, self.last_name, self.email, self.password, self.is_admin)
 
 
 

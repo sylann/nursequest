@@ -5,9 +5,10 @@
 
     <section class="section">
         <div class="container">
+            {% if session['logged_as'] == 'speaker' %}
             <div class="columns">
                 <div class="column">
-                    <h1 class="title">{{ data.speaker.tokens }}</h1>
+                    <h1 class="title">{{ data.user.tokens }}</h1>
                     <h2 class="subtitle">Jetons totaux</h2>
                 </div>
                 <div class="column">
@@ -15,59 +16,63 @@
                     <h2 class="subtitle">Nombre de demandes résolues</h2>
                 </div>
             </div>
+            {% endif %}
         </div>
     </section>
-
     <section class="section">
         <div class="container">
-            <form method="post" action="{{ url_for('update_profile', id=data.speaker.id) }}"
+            <form method="post" action="{{ url_for('update_profile', id=data.user.id) }}"
                   enctype="multipart/form-data">
-
                 <div class="columns">
-
                     <div class="column">
-
                         <h3 class="title is-3">Informations</h3>
-
                         <div class="field">
                             <label class="label">Nom</label>
                             <div class="control">
-                                <input class="input" type="text" name="speaker_last_name"
-                                       value="{{ data.speaker.user.last_name }}" readonly>
+                                <input class="input" type="text" name="user_last_name"
+                                       value="{{ data.user.last_name }}" required>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Prénom</label>
                             <div class="control">
-                                <input class="input" type="text" name="speaker_first_name"
-                                       value="{{ data.speaker.user.first_name }}" readonly>
+                                <input class="input" type="text" name="user_first_name"
+                                       value="{{ data.user.first_name }}" required>
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Email</label>
                             <div class="control">
                                 <input class="input" type="text" name="description"
-                                       value="{{ data.speaker.user.email }}" readonly>
+                                       value="{{ data.user.email }}" required>
                             </div>
                         </div>
-                    </div>
-
-                    <div class="column">
-                        <h3 class="title is-3">Complétez</h3>
-                        <div class="field">
-                            <label class="label">Tags</label>
-                            <div class="control">
-                                <input class="input" type="text" name="tags" value="{{ data.speaker.tags }}">
-                            </div>
-                        </div>
-
+                        {% if session['logged_as'] == 'main_teacher' %}
                         <div class="field is-grouped">
                             <div class="control">
-                                <button class="button is-link">Submit</button>
+                                <a class="button is-text" href="{{ url_for('get_mainteacher_dashboard', id=session['uid']) }}">Annuler</a></div>
+                                <button class="button is-link">Envoyer</button>
                             </div>
                         </div>
+                    {% endif %}
                     </div>
+
+                {% if session['logged_as'] == 'speaker' %}
+                <div class="column">
+                    <h3 class="title is-3">Compétences</h3>
+                    <div class="field">
+                        <label class="label">Tags</label>
+                        <div class="control">
+                            <input class="input" type="text" name="tags" value="{{ data.user.tags }}" required>
+                        </div>
+                    </div>
+                    <div class="field is-grouped">
+                        <div class="control">
+                            <a class="button is-text" href="{{ url_for('get_mainteacher_dashboard', id=session['uid']) }}">Annuler</a></div>
+                            <button class="button is-link">Envoyer</button>
+                        </div>
                 </div>
+                {% endif %}
             </form>
         </div>
     </section>

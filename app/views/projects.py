@@ -1,8 +1,13 @@
+from pprint import pprint
+
+from flask import render_template, request, redirect, url_for, session, abort
 from flask import render_template, request
 from sqlalchemy import or_
 
 from app import app, db
 from app.models.projects import Project
+from app.models.ideas import Ideas
+from app.models.users import User
 
 
 @app.route('/projects')
@@ -16,17 +21,67 @@ def get_projects():
     searched = request.args.get('search', default='')
     if searched:
         q = q.filter(or_(
-            Project.first_name.ilike('%' + searched + '%'),
-            Project.last_name.ilike('%' + searched + '%'),
-            Project.email.ilike('%' + searched + '%'),
-            Project.social_number.ilike('%' + searched + '%')
+            Project.title.ilike('%' + searched + '%'),
+            Project.description.ilike('%' + searched + '%')
         ))
-    projects = q.paginate(page, 10, False)
+    projects = q.paginate(page, 5, False)
     return render_template(
         'projects.html',
         current_route='get_projects',
-        title='List of admitted patients',
+        title='Liste des projets en cours',
         subtitle='',
         data=projects,
         searched=searched
     )
+
+
+
+@app.route('/projects/new/')
+def get_create_project():
+    user = User.query.filter_by(id=session['uid']).first()
+
+    return render_template(
+        'create_project.html',
+        title='Création d\'un nouveau projet de Workshop',
+        data={'user': user}
+        )
+
+
+@app.route('/projects/create_project', methods=['POST'])
+def create_project():
+    user = User.query.filter_by(id=session['uid']).first()
+    title = request.form.get('title')
+    description = request.form.get('description')
+    min_members = request.form.get('min_members')
+    max_members = request.form.get('max_members')
+    token_number = request.form.get('token_number')
+
+    project = Project(
+        title=title,
+        description=description,
+        min_members=min_members,
+        max_members=max_members,
+        token_number=token_number
+    )
+
+    db.session.add(project)
+    try:
+        db.session.commit()
+    except:
+        abort(500)
+
+    return redirect(url_for('get_projects'))
+
+
+# @app.route('/ideas/add_interest_idea/<int:id>')
+# def add_interest_idea(id):
+#
+#     idea = Ideas.query.filter_by(id=id).first()
+#     idea.interested = idea.interested + 1
+#
+#     try:
+#         db.session.commit()
+#     except:
+#         abort(500)
+#
+#     return redirect(url_for('get_ideas'))

@@ -1,4 +1,3 @@
-<h5 class="title is-5">Recherche par filtre</h5>
 <p class="has-text-info">
     {% if  searched %}
         Nombre total avec ce filtre :
@@ -11,10 +10,10 @@
 <form action="{{ url_for(current_route) }}" method="get">
     <div class="field has-addons">
         <div class="control">
-            <input type="text" class="input" name="search" placeholder="Filter entries" value="{{ searched }}">
+            <input type="text" class="input" name="search" placeholder="Filtrer par" value="{{ searched }}">
         </div>
         <div class="control">
-            <input type="submit" class="button is-info" value="search"/>
+            <input type="submit" class="button is-info" value="Recherche"/>
         </div>
     </div>
 

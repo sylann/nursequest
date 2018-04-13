@@ -136,7 +136,7 @@ def get_student_dashboard():
             Need.description.ilike('%' + searched + '%'),
             Need.status.ilike('%' + searched + '%'),
         ))
-    needs = q.paginate(page, 10, False)
+    needs = q.paginate(page, 5, False)
 
     return render_template(
         'students/project-stage.html',
