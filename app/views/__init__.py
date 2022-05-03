@@ -1,5 +1,4 @@
-from os.path import join as path_join
-
+from werkzeug.utils import safe_join
 from flask import send_file
 
 from app.views.users import *
@@ -19,7 +18,7 @@ def index():
 @app.route('/static/<path:path>')
 def get_static(path):
     try:
-        return send_file(path_join(app.root_path, "static", path))
+        return send_file(safe_join(app.root_path, "static", path))
     except IOError as e:
         pass
     return "Not Found", 404
